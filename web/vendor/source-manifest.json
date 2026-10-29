@@ -1,0 +1,1202 @@
+{
+  "tuja-ui/src/_generated/palette/hues/blue.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/blue.stylex.ts",
+    "sha256": "fabff68c94f6359e7901c628dfe250229df0c0637ae3b535f7692cf3376cf3c3"
+  },
+  "tuja-ui/src/_generated/palette/hues/brown.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/brown.stylex.ts",
+    "sha256": "015da4203e6c16b55dab000c1cdcbd9169a33fafd59701fd48f3486ab1a59fda"
+  },
+  "tuja-ui/src/_generated/palette/hues/cyan.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/cyan.stylex.ts",
+    "sha256": "95a174c93da902ea3b227ef87e2ce8d6c9520a58d18d10f36a0803961ea1efcf"
+  },
+  "tuja-ui/src/_generated/palette/hues/gray.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/gray.stylex.ts",
+    "sha256": "a9d154f763fe0b642e004184a5cfbed330984c362faf8d4db7ebf50473632979"
+  },
+  "tuja-ui/src/_generated/palette/hues/green.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/green.stylex.ts",
+    "sha256": "ffeafda95b9d3682016307ece540d9d7bc08881edde685f762804a7337cba3a7"
+  },
+  "tuja-ui/src/_generated/palette/hues/indigo.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/indigo.stylex.ts",
+    "sha256": "08cb5b106a1983523c96c17872c5cd72770468196656a7ed862349c6e1533554"
+  },
+  "tuja-ui/src/_generated/palette/hues/mint.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/mint.stylex.ts",
+    "sha256": "9bedf74bbf7a02fda16279b21ff3902722ff02a65b9c4d60fa7eaaf7c491da64"
+  },
+  "tuja-ui/src/_generated/palette/hues/orange.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/orange.stylex.ts",
+    "sha256": "8c45ffbbc6cdcc97ccb95b7a35723ba1e8664ec5c0fb9fb320d3f54e08d7a11b"
+  },
+  "tuja-ui/src/_generated/palette/hues/pink.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/pink.stylex.ts",
+    "sha256": "bc4e29a0742884ba32f935831f42fd57eaba26813f00f829e0a720bd0c2f5b80"
+  },
+  "tuja-ui/src/_generated/palette/hues/purple.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/purple.stylex.ts",
+    "sha256": "d91d41658a4050c04bc1b4a478d270ea1bd57d6eaa7b6aabca39c568874a150e"
+  },
+  "tuja-ui/src/_generated/palette/hues/red.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/red.stylex.ts",
+    "sha256": "23daaab662b59e0c96920f15658f599d9fefa2eba60e097be36f43b5560eabd2"
+  },
+  "tuja-ui/src/_generated/palette/hues/teal.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/teal.stylex.ts",
+    "sha256": "e7e829cdfb932af7657c6016bbfb3984a8f21b8ed273ef7c125f9efcc71abaa0"
+  },
+  "tuja-ui/src/_generated/palette/hues/yellow.stylex.ts": {
+    "upstream": "packages/ui/src/_generated/palette/hues/yellow.stylex.ts",
+    "sha256": "5c73d07a6f6bea955ad5a5e918e2225f08a27977bf051e6c928575ee2c210a3a"
+  },
+  "tuja-ui/src/_generated/palette/palette-table.ts": {
+    "upstream": "packages/ui/src/_generated/palette/palette-table.ts",
+    "sha256": "5559a4ae15e9a9c7f0d2079e88d233a7c1da89fc49042ab1adaa88f97dda830b"
+  },
+  "tuja-ui/src/actions/anchor-button.tsx": {
+    "upstream": "packages/ui/src/actions/anchor-button.tsx",
+    "sha256": "b51d362989ecb5711653008c5e20b7a8524e2c6de3de0f33a90a2018dc18a3ef"
+  },
+  "tuja-ui/src/actions/anchor.stylex.ts": {
+    "upstream": "packages/ui/src/actions/anchor.stylex.ts",
+    "sha256": "5e9e719eb0efe29b583ef73be0643e9061be81b06eade4ff2614a0d7db503570"
+  },
+  "tuja-ui/src/actions/breadcrumb-anchor.tsx": {
+    "upstream": "packages/ui/src/actions/breadcrumb-anchor.tsx",
+    "sha256": "5625f32360d47d325e5b8d5b57d7481f8c108e2f247777826c1d8c0d437c566a"
+  },
+  "tuja-ui/src/actions/breadcrumb.tsx": {
+    "upstream": "packages/ui/src/actions/breadcrumb.tsx",
+    "sha256": "e72720e6e1bb169095fce071bb4b10bd7a0a929585807d1f0645868ecbef3372"
+  },
+  "tuja-ui/src/actions/button-shared.stylex.ts": {
+    "upstream": "packages/ui/src/actions/button-shared.stylex.ts",
+    "sha256": "fbce379abf4f4205ec4c225fcf2bcb194b1b5137d5c110199547123e41008bc4"
+  },
+  "tuja-ui/src/actions/button.stylex.ts": {
+    "upstream": "packages/ui/src/actions/button.stylex.ts",
+    "sha256": "f328f92db4950f40b89bc503ef3a31d0786f5b9dd6a19569aa136280239d42df"
+  },
+  "tuja-ui/src/actions/button.tsx": {
+    "upstream": "packages/ui/src/actions/button.tsx",
+    "sha256": "b5854433304fdf27e26c17c2f6e74f9b4bb680b16a7edc7ae24b15714b61e140"
+  },
+  "tuja-ui/src/actions/chip.stylex.ts": {
+    "upstream": "packages/ui/src/actions/chip.stylex.ts",
+    "sha256": "ff8eedf30c0ff64c9be1776b7121566bf350aabecf781ce366bb4cc57b0164cc"
+  },
+  "tuja-ui/src/actions/chip.tsx": {
+    "upstream": "packages/ui/src/actions/chip.tsx",
+    "sha256": "5176ddf8673abffd9565751395dbbe587402d04fbf13f5ae945dae7d2229f8fe"
+  },
+  "tuja-ui/src/actions/menu-button.tsx": {
+    "upstream": "packages/ui/src/actions/menu-button.tsx",
+    "sha256": "935f34a3859f413742c6cf10870ee8b5f6a15c9358c62b38826ee24411f7e636"
+  },
+  "tuja-ui/src/actions/menu-label.tsx": {
+    "upstream": "packages/ui/src/actions/menu-label.tsx",
+    "sha256": "dab9c135de61264bce45493306801c475451a18f35a950315924e74dbb64a265"
+  },
+  "tuja-ui/src/actions/nav-group.tsx": {
+    "upstream": "packages/ui/src/actions/nav-group.tsx",
+    "sha256": "39bcf0de57f64aa23103aef69b6613f8464548a5c621cbdf6f3f8a8b38d8b653"
+  },
+  "tuja-ui/src/actions/nav-link.tsx": {
+    "upstream": "packages/ui/src/actions/nav-link.tsx",
+    "sha256": "53eed67dbf1224e3295050c3300d9ac09c133446f0899495d284d914d012494f"
+  },
+  "tuja-ui/src/actions/nav-list-context.tsx": {
+    "upstream": "packages/ui/src/actions/nav-list-context.tsx",
+    "sha256": "a9791a75fbfbe4ad7238a55214db8c8011dc5b552d2c3d13cf5d1c41d5793c4c"
+  },
+  "tuja-ui/src/actions/nav-list.tsx": {
+    "upstream": "packages/ui/src/actions/nav-list.tsx",
+    "sha256": "9c0c8caeb01824cb6bf40cfd1820d07342dab2a57bca21fca49d82ee167170b7"
+  },
+  "tuja-ui/src/actions/tab-bar.stylex.ts": {
+    "upstream": "packages/ui/src/actions/tab-bar.stylex.ts",
+    "sha256": "ee9273b609b11e2f23f4094752276d0e5bfe9be851cd9d05864c44c6ad2905b9"
+  },
+  "tuja-ui/src/actions/tab-bar.tsx": {
+    "upstream": "packages/ui/src/actions/tab-bar.tsx",
+    "sha256": "690d633731b5be55604dfb87e2aca30c23a58854bb94f2f9a380c652dfec5cff"
+  },
+  "tuja-ui/src/actions/use-roving-focus.ts": {
+    "upstream": "packages/ui/src/actions/use-roving-focus.ts",
+    "sha256": "0a2951968d546ef9240663182a2ce407ccb1c4f06c163e3f61fd518e50e0fb88"
+  },
+  "tuja-ui/src/actions/use-sheet-cap.ts": {
+    "upstream": "packages/ui/src/actions/use-sheet-cap.ts",
+    "sha256": "6c3ea7882ecf63a3e1d15327ba572b6780be7d000beda8c37d5a6cf89cfac59d"
+  },
+  "tuja-ui/src/actions/use-surface-morph.ts": {
+    "upstream": "packages/ui/src/actions/use-surface-morph.ts",
+    "sha256": "6ae6748a317b9368764ee534404737ea44f7bd9017b4d1daeb5776e59044e982"
+  },
+  "tuja-ui/src/actions/use-tab-press.ts": {
+    "upstream": "packages/ui/src/actions/use-tab-press.ts",
+    "sha256": "b9db986bb08873e0fefd9f86d6a943410d9175de8ea0ec7fa61f45e744b4b807"
+  },
+  "tuja-ui/src/breakpoints.stylex.ts": {
+    "upstream": "packages/ui/src/breakpoints.stylex.ts",
+    "sha256": "55a07e7d3e85ab4daef7223ef866fab54a7940f6cd42f80e15c5753271efdb35"
+  },
+  "tuja-ui/src/clamp.ts": {
+    "upstream": "packages/ui/src/clamp.ts",
+    "sha256": "90bd66741dc43899c33481229992acb0126d97adfbee293a05e99cbc45723f83"
+  },
+  "tuja-ui/src/content/code-block.tsx": {
+    "upstream": "packages/ui/src/content/code-block.tsx",
+    "sha256": "23450ecc69c24790a0586af6a8a96b8296197555e3ddafd24d5eae2a3c2a149a"
+  },
+  "tuja-ui/src/content/code-run.stylex.ts": {
+    "upstream": "packages/ui/src/content/code-run.stylex.ts",
+    "sha256": "68a823a4fb0c51be48c6e0bb92731a48bb81487b638dbe26d12eb011a82826f5"
+  },
+  "tuja-ui/src/content/heading.tsx": {
+    "upstream": "packages/ui/src/content/heading.tsx",
+    "sha256": "ba05a2d5d39f08e1ff4b11405930825962596e271f4ef9460a4f4e4b22512bf5"
+  },
+  "tuja-ui/src/content/syntax.stylex.ts": {
+    "upstream": "packages/ui/src/content/syntax.stylex.ts",
+    "sha256": "cf8df11aa6f04287411e19b82296fe5d07558033d44ba072e15038ca6045304d"
+  },
+  "tuja-ui/src/content/text.tsx": {
+    "upstream": "packages/ui/src/content/text.tsx",
+    "sha256": "603c25eaef1f18c289a39942de03b516591c229331f79112e53a97c6b29e8d77"
+  },
+  "tuja-ui/src/content/token-kinds.ts": {
+    "upstream": "packages/ui/src/content/token-kinds.ts",
+    "sha256": "eb66b5dbbc4a31cb6f70a7589f86fec5ce8d3152e004689ec806e7f7079581e1"
+  },
+  "tuja-ui/src/contrast/contrast-ratio.ts": {
+    "upstream": "packages/ui/src/contrast/contrast-ratio.ts",
+    "sha256": "cff76e414763e9d37e909827f36002d1ec055a18695887c9874bdbfa0c948275"
+  },
+  "tuja-ui/src/contrast/hex-channels.ts": {
+    "upstream": "packages/ui/src/contrast/hex-channels.ts",
+    "sha256": "561802175a19acf485e54adb00d7af9871ed2dc25e02989c990dfdc2c4f2d6d1"
+  },
+  "tuja-ui/src/css-prop.d.ts": {
+    "upstream": "packages/ui/src/css-prop.d.ts",
+    "sha256": "c20f3038ae182ad1c23454528856f22ec132934be8c850b3bc16446ede69b847"
+  },
+  "tuja-ui/src/data-display/avatar.tsx": {
+    "upstream": "packages/ui/src/data-display/avatar.tsx",
+    "sha256": "9e5a1b79cbb658ced38350b04c7d42f9e12b7dfb2fc2ccd29042a30759b6046b"
+  },
+  "tuja-ui/src/data-display/badge.tsx": {
+    "upstream": "packages/ui/src/data-display/badge.tsx",
+    "sha256": "c6066ffc4aca2eca496e2ac97ff49090c7ba45d844455ff3b12026b8d25998f7"
+  },
+  "tuja-ui/src/data-display/list-row.tsx": {
+    "upstream": "packages/ui/src/data-display/list-row.tsx",
+    "sha256": "72d2b944579a31fdb3a4391fbe97e6f3cb5c6d7c50b892e0a3f2f60b03647a6a"
+  },
+  "tuja-ui/src/data-display/list.stylex.ts": {
+    "upstream": "packages/ui/src/data-display/list.stylex.ts",
+    "sha256": "465d330cd0149f56ee0bf127fbced5220aca60ae6501d60a835ed9a60c769933"
+  },
+  "tuja-ui/src/data-display/list.tsx": {
+    "upstream": "packages/ui/src/data-display/list.tsx",
+    "sha256": "a9c9d6dbed41f4996ead554b35725884b4b8c32a7943095e39a5ab405a7ed9c2"
+  },
+  "tuja-ui/src/data-display/table-body.tsx": {
+    "upstream": "packages/ui/src/data-display/table-body.tsx",
+    "sha256": "ae8c844d1d905dc92e8585bdbb06fe01aecc9462525adcf82426a7e92470eb64"
+  },
+  "tuja-ui/src/data-display/table-cell.stylex.ts": {
+    "upstream": "packages/ui/src/data-display/table-cell.stylex.ts",
+    "sha256": "085a01490a3cab3208ee19dd26e6f3d13a982c4b0666e107530de4474572df8c"
+  },
+  "tuja-ui/src/data-display/table-cell.tsx": {
+    "upstream": "packages/ui/src/data-display/table-cell.tsx",
+    "sha256": "16805b870aae03d046952671abd700557f827333020617874d91b322efc624b6"
+  },
+  "tuja-ui/src/data-display/table-foot.tsx": {
+    "upstream": "packages/ui/src/data-display/table-foot.tsx",
+    "sha256": "17be413fd2e545678108aabbdb8cb6fa675929a874f3059768a92336dd0a5994"
+  },
+  "tuja-ui/src/data-display/table-head.tsx": {
+    "upstream": "packages/ui/src/data-display/table-head.tsx",
+    "sha256": "22a9d9ded22597f7780944ab2267cf0aebf61e711ad17f7126d7ad808e7d9677"
+  },
+  "tuja-ui/src/data-display/table-header-cell.tsx": {
+    "upstream": "packages/ui/src/data-display/table-header-cell.tsx",
+    "sha256": "299c9c0f7bf5b0bcb8907e219179bc9314f0e8ab9961c59310d6f49cee7fc832"
+  },
+  "tuja-ui/src/data-display/table-row.tsx": {
+    "upstream": "packages/ui/src/data-display/table-row.tsx",
+    "sha256": "ed18309add12088e3720c7a9d0cb01172958fb8ac4cfa6cb4eca3a9ae2c901cb"
+  },
+  "tuja-ui/src/data-display/table-scroller.tsx": {
+    "upstream": "packages/ui/src/data-display/table-scroller.tsx",
+    "sha256": "1fd01881e73e0e3c63478c7af520b1b7280341a52358098f3b89fd6a8eaa520a"
+  },
+  "tuja-ui/src/data-display/table.stylex.ts": {
+    "upstream": "packages/ui/src/data-display/table.stylex.ts",
+    "sha256": "084b3465a8e013aba5c784b761470b02dab2e8ba34a364ec66ae5d1cc0261fc5"
+  },
+  "tuja-ui/src/data-display/table.tsx": {
+    "upstream": "packages/ui/src/data-display/table.tsx",
+    "sha256": "5b616107421b84f114153e969ecd6004a937f8c304cac67a8418b6f7dabe149d"
+  },
+  "tuja-ui/src/effect-layer/banded-carrier.ts": {
+    "upstream": "packages/ui/src/effect-layer/banded-carrier.ts",
+    "sha256": "ac38bb476207f04072dbbe9cec6291968c284c51ce0ec8481394089051068ba4"
+  },
+  "tuja-ui/src/effect-layer/beam-color.ts": {
+    "upstream": "packages/ui/src/effect-layer/beam-color.ts",
+    "sha256": "00ec3162be836780f56c7ccbb2ffad12357d41f9e463f228c577e3a4db2ae9bf"
+  },
+  "tuja-ui/src/effect-layer/beam-meets-rect.ts": {
+    "upstream": "packages/ui/src/effect-layer/beam-meets-rect.ts",
+    "sha256": "2bc696d1aa99e1d194adba5420688f7af728160d83ecad7f1e33e4b637ac2152"
+  },
+  "tuja-ui/src/effect-layer/black-hole-effect.ts": {
+    "upstream": "packages/ui/src/effect-layer/black-hole-effect.ts",
+    "sha256": "94025470fc223dbb40a4008fe01eef61f5920192b7575e807a2c674431ec9267"
+  },
+  "tuja-ui/src/effect-layer/black-hole-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/black-hole-wgsl.ts",
+    "sha256": "0abf09dc4d72cf445d9f08166a84a7a4904927876d1c37712a2f984c8cdfa711"
+  },
+  "tuja-ui/src/effect-layer/carrier-of.ts": {
+    "upstream": "packages/ui/src/effect-layer/carrier-of.ts",
+    "sha256": "f8047b66e445866b856db6793462319bce6be08e5adbd0e2a9479923fc7824f6"
+  },
+  "tuja-ui/src/effect-layer/check-declared-carrier.ts": {
+    "upstream": "packages/ui/src/effect-layer/check-declared-carrier.ts",
+    "sha256": "67f7434f474d57ba5ae1719d75f07a644d22ad1680ce3b4b8521e811430b820a"
+  },
+  "tuja-ui/src/effect-layer/compute-bands.ts": {
+    "upstream": "packages/ui/src/effect-layer/compute-bands.ts",
+    "sha256": "7515f1fcfe0de5c563d6cdae230ac485788ed3ed868ddd08ae32eae15b3de04a"
+  },
+  "tuja-ui/src/effect-layer/constants.ts": {
+    "upstream": "packages/ui/src/effect-layer/constants.ts",
+    "sha256": "e0b7014516f90f92e3d0be755abff6dfe1a810eadd6571cfbe484b35499b22b5"
+  },
+  "tuja-ui/src/effect-layer/create-binding.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-binding.ts",
+    "sha256": "36adde9a104fa1bb4767b4110402d86ef2105ddd80330f82133de0f601847cc5"
+  },
+  "tuja-ui/src/effect-layer/create-effect-layer.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-effect-layer.ts",
+    "sha256": "0d783c45139070fac54117305cacce11912ec3e423cba65e1dd8f4b727fd982a"
+  },
+  "tuja-ui/src/effect-layer/create-effect-registry.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-effect-registry.ts",
+    "sha256": "27c3c8426c5fa04cbc931c720ac2c3ffbebf1a5766f1c2f69c64fafed9772df9"
+  },
+  "tuja-ui/src/effect-layer/create-element-tracker.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-element-tracker.ts",
+    "sha256": "88a3bd6462f473bf08b5b62f53a5a86b6fa37ad3e8cab5d51f32e5e41f9aa995"
+  },
+  "tuja-ui/src/effect-layer/create-frame-clock.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-frame-clock.ts",
+    "sha256": "bf26d251fae2e327372d2a35780dd322afb2c634b1b9439e30d8e4ddf2487a96"
+  },
+  "tuja-ui/src/effect-layer/create-frame-scheduler.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-frame-scheduler.ts",
+    "sha256": "a1a8bd20f212c286f626565a28a5a7b048208cc62f91e9b5dd16c1563f37faa1"
+  },
+  "tuja-ui/src/effect-layer/create-instanced-draw.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-instanced-draw.ts",
+    "sha256": "14c330ad0e9122c843c0ed129e9e3977648ed7a057d5804cd5e96dddf4fc423e"
+  },
+  "tuja-ui/src/effect-layer/create-packed-buffer.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-packed-buffer.ts",
+    "sha256": "2535a823e25dab1e778e1e80ce9d1a3282359249e4944d99b942fa40a7ea7493"
+  },
+  "tuja-ui/src/effect-layer/create-ripples.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-ripples.ts",
+    "sha256": "640ad468d711f103ae00dd3d4e6bd58d82548bc7d5bddb14fa9edec7355ea7a6"
+  },
+  "tuja-ui/src/effect-layer/create-scroll-region.ts": {
+    "upstream": "packages/ui/src/effect-layer/create-scroll-region.ts",
+    "sha256": "82ad4decbddf21c74486c8c21971cc2b0be5cae32b674b40f148ca911f5e494a"
+  },
+  "tuja-ui/src/effect-layer/debug-effect.ts": {
+    "upstream": "packages/ui/src/effect-layer/debug-effect.ts",
+    "sha256": "5f26c2917e97fe04b4b549dc9cee039cb02a8fd29fe48782df09c8344b8f76b4"
+  },
+  "tuja-ui/src/effect-layer/dust-color.ts": {
+    "upstream": "packages/ui/src/effect-layer/dust-color.ts",
+    "sha256": "2239b35dc6e2c88edcfd63d7f3ae0a050526cd4ed35680ab6b0bf6faf3bb1b1c"
+  },
+  "tuja-ui/src/effect-layer/dust-compute-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/dust-compute-wgsl.ts",
+    "sha256": "62aa487858e212eb6b39fc453ec8b35b61c280770f73d785033f225e1561448b"
+  },
+  "tuja-ui/src/effect-layer/dust-effect.ts": {
+    "upstream": "packages/ui/src/effect-layer/dust-effect.ts",
+    "sha256": "133fdc7fbcaeae096b57571476dd73a1ccee7f72985e52ad816c2d71403287cd"
+  },
+  "tuja-ui/src/effect-layer/dust-render-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/dust-render-wgsl.ts",
+    "sha256": "93e53a50dd05d097f1094f6080bad37072b4d320dd46bc1999e4b2e26bd6379e"
+  },
+  "tuja-ui/src/effect-layer/dust-shared-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/dust-shared-wgsl.ts",
+    "sha256": "70bfa4bd22e3970ac1a5233c17755389795e88e14c5f0a58fc849e4614a2e3f8"
+  },
+  "tuja-ui/src/effect-layer/effect-carrier-context.ts": {
+    "upstream": "packages/ui/src/effect-layer/effect-carrier-context.ts",
+    "sha256": "a3957a214b125d5b1a1fd566f25f38140e2f832a04f5f54b61c7eb731d4ffa6a"
+  },
+  "tuja-ui/src/effect-layer/effect-carrier.tsx": {
+    "upstream": "packages/ui/src/effect-layer/effect-carrier.tsx",
+    "sha256": "ec061695b98b3f252b83362dd0aee0d28844bb7715768a8e0e5313a4552e3b10"
+  },
+  "tuja-ui/src/effect-layer/effect-container.tsx": {
+    "upstream": "packages/ui/src/effect-layer/effect-container.tsx",
+    "sha256": "f679767a92e3892c2868baadaabda0c2cb0c61ba0386170347c432fad31ba8cf"
+  },
+  "tuja-ui/src/effect-layer/effect-layer-canvases.tsx": {
+    "upstream": "packages/ui/src/effect-layer/effect-layer-canvases.tsx",
+    "sha256": "dc16ad50ae57920bbc0abe5ad12c80bac18e61316762a90bfaaf32e82c8a166d"
+  },
+  "tuja-ui/src/effect-layer/effect-layer-context.ts": {
+    "upstream": "packages/ui/src/effect-layer/effect-layer-context.ts",
+    "sha256": "5a2608c869340a80055488c9a795f8f52ed92a4d59fab08d0bea2a0bf2835094"
+  },
+  "tuja-ui/src/effect-layer/effect-layer-provider.tsx": {
+    "upstream": "packages/ui/src/effect-layer/effect-layer-provider.tsx",
+    "sha256": "75985e66e72155bd8d4b873bc23ef68e910ca21a9f95bd798346ae8679a6b14d"
+  },
+  "tuja-ui/src/effect-layer/effect-roles.ts": {
+    "upstream": "packages/ui/src/effect-layer/effect-roles.ts",
+    "sha256": "a5592a0cc343af7dc612c65d93def209962e0c7b256eae546e2d25e0e4d4e0ec"
+  },
+  "tuja-ui/src/effect-layer/effect-scope-context.ts": {
+    "upstream": "packages/ui/src/effect-layer/effect-scope-context.ts",
+    "sha256": "67353e7cdb45e43cc735e88cddc651b0ac14d144f8a64a7971a0b1f96b8a51ac"
+  },
+  "tuja-ui/src/effect-layer/effect-setting-defaults.ts": {
+    "upstream": "packages/ui/src/effect-layer/effect-setting-defaults.ts",
+    "sha256": "df17485a9b7c415f5d42bd8ba77ba23d68c3eb24854eb70bb5b7f5fc7528ef75"
+  },
+  "tuja-ui/src/effect-layer/effects-for-roles.ts": {
+    "upstream": "packages/ui/src/effect-layer/effects-for-roles.ts",
+    "sha256": "b09cc52895ac5c402d613b521300053637924ca3312af2e0e45debe8eae89021"
+  },
+  "tuja-ui/src/effect-layer/encode-canvas-pass.ts": {
+    "upstream": "packages/ui/src/effect-layer/encode-canvas-pass.ts",
+    "sha256": "a33a61d0794ef4477757cac752fea6fd0fef6cb8da52bf935d87d3e323f93e89"
+  },
+  "tuja-ui/src/effect-layer/hand-back.stylex.ts": {
+    "upstream": "packages/ui/src/effect-layer/hand-back.stylex.ts",
+    "sha256": "c1e0a5eb01a02e2695747b80c1bf6a1fba88e178b48721ba0bd2cc79b65e66e5"
+  },
+  "tuja-ui/src/effect-layer/last-result-of.ts": {
+    "upstream": "packages/ui/src/effect-layer/last-result-of.ts",
+    "sha256": "e0eed93f97433e12fbbab741baf60f08eba0f3ed7999d98595c9d00791b8603b"
+  },
+  "tuja-ui/src/effect-layer/lens-from-box.ts": {
+    "upstream": "packages/ui/src/effect-layer/lens-from-box.ts",
+    "sha256": "3a345895eb8fcf69a732c802f38283a8c718f4748f92147c84ac88eec8d06235"
+  },
+  "tuja-ui/src/effect-layer/lenses-of-scope.ts": {
+    "upstream": "packages/ui/src/effect-layer/lenses-of-scope.ts",
+    "sha256": "a673d01ce89d210359eac87ed29357a4434a18c487f9a5bdef45cfdb04b602f5"
+  },
+  "tuja-ui/src/effect-layer/liquid-compute-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/liquid-compute-wgsl.ts",
+    "sha256": "b74bb9027476787a3fc49f143678da7c0c03cbcb03ccd0d970c2bf6ceee3a8ae"
+  },
+  "tuja-ui/src/effect-layer/liquid-effect.ts": {
+    "upstream": "packages/ui/src/effect-layer/liquid-effect.ts",
+    "sha256": "0ccad9f6615575d5d33d1e278180016db5bbad817e2df314683b4a9b0c8576c4"
+  },
+  "tuja-ui/src/effect-layer/liquid-indicator.ts": {
+    "upstream": "packages/ui/src/effect-layer/liquid-indicator.ts",
+    "sha256": "a854492acf229e2dcfd7697f232eb24d236d06ae2a570da046810f93cc2d9e20"
+  },
+  "tuja-ui/src/effect-layer/liquid-reader.ts": {
+    "upstream": "packages/ui/src/effect-layer/liquid-reader.ts",
+    "sha256": "aadf94915403b20d48ff58ca7d5c28bedbbe5a13f2e30bdb9a000636c3e5db74"
+  },
+  "tuja-ui/src/effect-layer/liquid-shared-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/liquid-shared-wgsl.ts",
+    "sha256": "2a40cb1550e71f4c00cd54e01ba7be693a789c37ec96af34c1605abdb171fc12"
+  },
+  "tuja-ui/src/effect-layer/liquid-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/liquid-wgsl.ts",
+    "sha256": "7c952dca1cee0a989eafc35397e75deb0498b2886d9566622ce75029ceab2506"
+  },
+  "tuja-ui/src/effect-layer/mark-effect-drawn.ts": {
+    "upstream": "packages/ui/src/effect-layer/mark-effect-drawn.ts",
+    "sha256": "607d53ce1c63ddf820a35b333c14cb4b1de4ece3db9b0d9ef0411097a059b858"
+  },
+  "tuja-ui/src/effect-layer/observe-move.ts": {
+    "upstream": "packages/ui/src/effect-layer/observe-move.ts",
+    "sha256": "6f06e00c7d008e42dc807bf03e73642da812b6ba42749f4bdf032456ffb3f0c5"
+  },
+  "tuja-ui/src/effect-layer/observe-stuck.ts": {
+    "upstream": "packages/ui/src/effect-layer/observe-stuck.ts",
+    "sha256": "95095cb7e246a349b16a5f86638228ca97b89ad1ee1516ce9356a67cc4a47eb5"
+  },
+  "tuja-ui/src/effect-layer/outline-param.ts": {
+    "upstream": "packages/ui/src/effect-layer/outline-param.ts",
+    "sha256": "9574ef9b8a7a1efe6df2990ba4e8c56f3a8a0e2566d934a39d7d7b1b57bf3b81"
+  },
+  "tuja-ui/src/effect-layer/page-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/page-wgsl.ts",
+    "sha256": "bd7a473d61c5ee401c901042713579708f0f2fa943f696ef87a9b413f549971d"
+  },
+  "tuja-ui/src/effect-layer/parse-css-color.ts": {
+    "upstream": "packages/ui/src/effect-layer/parse-css-color.ts",
+    "sha256": "03d792f53551e6c93a5a7610a96d124c59be651b73ed9fcd66bf9117072ab463"
+  },
+  "tuja-ui/src/effect-layer/plan-scopes.ts": {
+    "upstream": "packages/ui/src/effect-layer/plan-scopes.ts",
+    "sha256": "7fcbe42429df82e65764c13a51fbcc89dbb6930e2803859f873004fa59bd50df"
+  },
+  "tuja-ui/src/effect-layer/read-effect-layer-mode.ts": {
+    "upstream": "packages/ui/src/effect-layer/read-effect-layer-mode.ts",
+    "sha256": "9b3c8b12f8d94799f36234aaa06ed3926974d7ed29cf89c0bd4d1dfcaacd2d14"
+  },
+  "tuja-ui/src/effect-layer/read-element-box.ts": {
+    "upstream": "packages/ui/src/effect-layer/read-element-box.ts",
+    "sha256": "f44c83d81ecc110f8001784fb5719ce2c48d9b7d959b8ef93c98fe4cff454990"
+  },
+  "tuja-ui/src/effect-layer/read-roles.ts": {
+    "upstream": "packages/ui/src/effect-layer/read-roles.ts",
+    "sha256": "4695567baf3561afe0077aef730b5499b4a507da223100f193682de77ed2650c"
+  },
+  "tuja-ui/src/effect-layer/request-effect-device.ts": {
+    "upstream": "packages/ui/src/effect-layer/request-effect-device.ts",
+    "sha256": "14c574dc1cb2220a1036e99f684ecb517e2cad16ab0aba83463ba9fd580309d6"
+  },
+  "tuja-ui/src/effect-layer/resolve-carrier.ts": {
+    "upstream": "packages/ui/src/effect-layer/resolve-carrier.ts",
+    "sha256": "c6e18f2b5dd55a045f1d0892e97121fd532a29cc136260305e113cfbbe6fad2c"
+  },
+  "tuja-ui/src/effect-layer/ring-lap-at.ts": {
+    "upstream": "packages/ui/src/effect-layer/ring-lap-at.ts",
+    "sha256": "bd33cefbfb5fcbc47c8b4f09300ae54c9eaec4f23d75d265967fb69fd8cde11a"
+  },
+  "tuja-ui/src/effect-layer/ring-light-colors.ts": {
+    "upstream": "packages/ui/src/effect-layer/ring-light-colors.ts",
+    "sha256": "26b6abed7b55362891ae1a66c6ef5121b33d9d05e4bcd8b0c0c9685a4fcd8621"
+  },
+  "tuja-ui/src/effect-layer/ring-light-effect.ts": {
+    "upstream": "packages/ui/src/effect-layer/ring-light-effect.ts",
+    "sha256": "641e6eab10c6e1287d834e513f137e4b4f23696d3506b94b00bbd4a38bb3689d"
+  },
+  "tuja-ui/src/effect-layer/ring-light-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/ring-light-wgsl.ts",
+    "sha256": "5aff04fc077b1f9eb467d2ba32722b0efa0f36c643341a1acf55c9254e7f66bf"
+  },
+  "tuja-ui/src/effect-layer/ripple-color.ts": {
+    "upstream": "packages/ui/src/effect-layer/ripple-color.ts",
+    "sha256": "6de8d517b0ed472bd85e68eb1598f41696b73da6a7adb3ad6648103eee00a77f"
+  },
+  "tuja-ui/src/effect-layer/ripple-effect.ts": {
+    "upstream": "packages/ui/src/effect-layer/ripple-effect.ts",
+    "sha256": "438af1e10d7a5ef2dce88a2cac7be505bd1c32407e5f509a9ea078900ee56085"
+  },
+  "tuja-ui/src/effect-layer/ripple-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/ripple-wgsl.ts",
+    "sha256": "912121b85ae170488eeb24e202a52f8b8a045eb96ddbb199a76347c6dcadf323"
+  },
+  "tuja-ui/src/effect-layer/schedule-dust-spawns.ts": {
+    "upstream": "packages/ui/src/effect-layer/schedule-dust-spawns.ts",
+    "sha256": "b2de092a01ec7b08e3ce01833d0a30b0890dc45d4fe29cff97532693a5174428"
+  },
+  "tuja-ui/src/effect-layer/step-aim.ts": {
+    "upstream": "packages/ui/src/effect-layer/step-aim.ts",
+    "sha256": "8850a4359cac8555b29df78cab15a4cd680d0b6cff9297a75f6892aac8a73296"
+  },
+  "tuja-ui/src/effect-layer/step-glint.ts": {
+    "upstream": "packages/ui/src/effect-layer/step-glint.ts",
+    "sha256": "b7f9cfc7c2a66e47d9429012708aef50038f50cbe77684af8bf9e5ce82f44d48"
+  },
+  "tuja-ui/src/effect-layer/step-liquid.ts": {
+    "upstream": "packages/ui/src/effect-layer/step-liquid.ts",
+    "sha256": "70fdb056085b0a2720b9216e7622fa763f6675bf0e7df461d06a446f71455e44"
+  },
+  "tuja-ui/src/effect-layer/step-rise.ts": {
+    "upstream": "packages/ui/src/effect-layer/step-rise.ts",
+    "sha256": "c1063adad128518faed85b97efe5a3c049468dc0bc3548d88eff7d139c37d569"
+  },
+  "tuja-ui/src/effect-layer/target-wgsl.ts": {
+    "upstream": "packages/ui/src/effect-layer/target-wgsl.ts",
+    "sha256": "47f777c316e837736df7ab61472be60d3b501c7b471bd1b8d005d9d754978d44"
+  },
+  "tuja-ui/src/effect-layer/track-elements.ts": {
+    "upstream": "packages/ui/src/effect-layer/track-elements.ts",
+    "sha256": "fa785dc6786d6f548d16f7c91d8ea49d41bc2deced3fa977a6fdeaa5a2c5c52f"
+  },
+  "tuja-ui/src/effect-layer/track-pointer.ts": {
+    "upstream": "packages/ui/src/effect-layer/track-pointer.ts",
+    "sha256": "aea5d297e24f5d03d059132433f6a40820767a805dcd8e5413b751217890fdc1"
+  },
+  "tuja-ui/src/effect-layer/types.ts": {
+    "upstream": "packages/ui/src/effect-layer/types.ts",
+    "sha256": "02e67f34ec15b4255543ed8858845a5a757af50b2c11459619481df8df811f44"
+  },
+  "tuja-ui/src/effect-layer/use-black-hole.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-black-hole.ts",
+    "sha256": "3ec909010e793b6333559420cd7d5ce5bfd0c9694707d59345652d45f5c5425e"
+  },
+  "tuja-ui/src/effect-layer/use-dust.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-dust.ts",
+    "sha256": "9e1a97c7a660403968b8b7c22e0f87fe3c2552e99efb54fbcee705354c1f0280"
+  },
+  "tuja-ui/src/effect-layer/use-effect-boundary.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-effect-boundary.ts",
+    "sha256": "e68b943b042b956f88ab89d5555a51f88480431a2c241761e72a80bc89ed5882"
+  },
+  "tuja-ui/src/effect-layer/use-effect-container.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-effect-container.ts",
+    "sha256": "908ef3adfc7f4130eccbc180fb38f4a1e99d82001d036160abbac65b5b0bb9c2"
+  },
+  "tuja-ui/src/effect-layer/use-effect-cover.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-effect-cover.ts",
+    "sha256": "536b9c507da8778de65cbc8d7fec097bdd1a88b950285e5ef65aed7ed357583c"
+  },
+  "tuja-ui/src/effect-layer/use-effect-registration.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-effect-registration.ts",
+    "sha256": "b666b1edc7c87961190ada513a17a3a4f1e2df10e2b0ec0240f25b84ce98258d"
+  },
+  "tuja-ui/src/effect-layer/use-effect-sticky.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-effect-sticky.ts",
+    "sha256": "fdd2d5910e19331b570c31fba70ee84f361e76d41c6d0ef1575dfa5883e8d533"
+  },
+  "tuja-ui/src/effect-layer/use-extractor-fan.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-extractor-fan.ts",
+    "sha256": "6c0005fabd728a068fd36e8916591109ecdaa6facf8688171a107c92e4d3343a"
+  },
+  "tuja-ui/src/effect-layer/use-light-beam.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-light-beam.ts",
+    "sha256": "c30160ba5357b54406beb5109dae2527552c780a062c94ad41c927363063e32d"
+  },
+  "tuja-ui/src/effect-layer/use-liquid.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-liquid.ts",
+    "sha256": "c46eb1d83c64034a630cad25169f375e486dd751138323298ad9e9c42df2fccb"
+  },
+  "tuja-ui/src/effect-layer/use-ring-light.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-ring-light.ts",
+    "sha256": "764c524876cf803d0d895115bf3a3e2dd226be7b52cb54014ef805e844e0d789"
+  },
+  "tuja-ui/src/effect-layer/use-ripple.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-ripple.ts",
+    "sha256": "9d2c0267b78cd8b9ce30d51c4c14afb6cbbeefc834d1a6c719af771b79cfb656"
+  },
+  "tuja-ui/src/effect-layer/use-scroll-region.ts": {
+    "upstream": "packages/ui/src/effect-layer/use-scroll-region.ts",
+    "sha256": "b790907604852d1333a3e632113a30c965c4699638f64719af272e5aada52ac4"
+  },
+  "tuja-ui/src/effect-layer/viewport-carrier.ts": {
+    "upstream": "packages/ui/src/effect-layer/viewport-carrier.ts",
+    "sha256": "15dfeed447a437d9685bd357e921a4cbfd88a6589ab047a50355be2783145733"
+  },
+  "tuja-ui/src/feedback/callout.tsx": {
+    "upstream": "packages/ui/src/feedback/callout.tsx",
+    "sha256": "5c28689b85389b4d8024a2829c1ff4b33fc9b02e20fe3baf2793443b2d96a0f1"
+  },
+  "tuja-ui/src/feedback/progress.stylex.ts": {
+    "upstream": "packages/ui/src/feedback/progress.stylex.ts",
+    "sha256": "bb7e5a4aaff6ecd27add8aaa809825ba29017ea1e4890cc75a40cb108e0d4ba6"
+  },
+  "tuja-ui/src/feedback/progress.tsx": {
+    "upstream": "packages/ui/src/feedback/progress.tsx",
+    "sha256": "bdb2afbec0e174cca72bd9c9974ac26c8e59872cd93dbac8a9b3656e20e4c204"
+  },
+  "tuja-ui/src/feedback/skeleton.stylex.ts": {
+    "upstream": "packages/ui/src/feedback/skeleton.stylex.ts",
+    "sha256": "06ced34ce044e3bf10671bdf4c9ace0795186fde7533d6ebd4f9f5511c05b2ba"
+  },
+  "tuja-ui/src/feedback/skeleton.tsx": {
+    "upstream": "packages/ui/src/feedback/skeleton.tsx",
+    "sha256": "5acb6b336a687714ce19c461278b71776c7ebc31fbdca8c30404c338433acc09"
+  },
+  "tuja-ui/src/feedback/spinner.tsx": {
+    "upstream": "packages/ui/src/feedback/spinner.tsx",
+    "sha256": "f5337930630f0ccf5a3e98c9805f873aad09790eca44d6d5847822a919cc2cb0"
+  },
+  "tuja-ui/src/feedback/toast-provider.tsx": {
+    "upstream": "packages/ui/src/feedback/toast-provider.tsx",
+    "sha256": "0ccc19f23d03bbdedc620065dbb41d02fa8e81988f81e8af7b3dcc15af39279c"
+  },
+  "tuja-ui/src/feedback/toast.stylex.ts": {
+    "upstream": "packages/ui/src/feedback/toast.stylex.ts",
+    "sha256": "98ecd7d62672fe4e64ae5939714386b6b2686787ad00b8358316c16e3eb46819"
+  },
+  "tuja-ui/src/feedback/toast.tsx": {
+    "upstream": "packages/ui/src/feedback/toast.tsx",
+    "sha256": "9a6763fe690e67a5015744974f5144f22fba2c2db8ffb576cbbb2950a6b03e14"
+  },
+  "tuja-ui/src/focus/find-twin-element.ts": {
+    "upstream": "packages/ui/src/focus/find-twin-element.ts",
+    "sha256": "0d1ae638d59a14ecb155e1a37a88f626cc0ce04c7aa8e5feb33abf1b7b6bd400"
+  },
+  "tuja-ui/src/focus/get-tabbable-elements.ts": {
+    "upstream": "packages/ui/src/focus/get-tabbable-elements.ts",
+    "sha256": "e7f740704f269dbaa495df3189866d8cb97e1bb669f25774c041d82c19f1927b"
+  },
+  "tuja-ui/src/focus/is-focusable.ts": {
+    "upstream": "packages/ui/src/focus/is-focusable.ts",
+    "sha256": "0215a0ac297ad1f9d6012b0edfc14270bc0f544dffed4360a5e1b0b5bf256d77"
+  },
+  "tuja-ui/src/focus/is-rendered.ts": {
+    "upstream": "packages/ui/src/focus/is-rendered.ts",
+    "sha256": "935c8ef05130148f58b23a5187213d354415aac7f6a071d7b942f4201f824bf5"
+  },
+  "tuja-ui/src/forms/checkbox.stylex.ts": {
+    "upstream": "packages/ui/src/forms/checkbox.stylex.ts",
+    "sha256": "d21d3fed5cfea71354a6f47c7f8353ae3d57d26191f0cd78d8a1a5bbfdb43924"
+  },
+  "tuja-ui/src/forms/checkbox.tsx": {
+    "upstream": "packages/ui/src/forms/checkbox.tsx",
+    "sha256": "182ae5422c03acc1c957cf4921beade81eae088e5c1d1050c30beefca610bca9"
+  },
+  "tuja-ui/src/forms/field-shared.stylex.ts": {
+    "upstream": "packages/ui/src/forms/field-shared.stylex.ts",
+    "sha256": "af3f7a50cd929a5372c6ac3df12dc0a2e351421a5e72a0c0c5a14656afbab53c"
+  },
+  "tuja-ui/src/forms/index-at.ts": {
+    "upstream": "packages/ui/src/forms/index-at.ts",
+    "sha256": "95819e5a112ca22481313c74a54025ba281c3161e4b9ac76463e763aa7cfba33"
+  },
+  "tuja-ui/src/forms/multiple-select-group.tsx": {
+    "upstream": "packages/ui/src/forms/multiple-select-group.tsx",
+    "sha256": "34a4a1bc4eb0a643f440b53971ea4a2eea8ef6d240931a8982b18ee4536b7241"
+  },
+  "tuja-ui/src/forms/option-card-group.stylex.ts": {
+    "upstream": "packages/ui/src/forms/option-card-group.stylex.ts",
+    "sha256": "4074eeac06e06e30c18ee8260c1fccc7be99458d97ad4596b158c15b91f12f57"
+  },
+  "tuja-ui/src/forms/option-card-group.tsx": {
+    "upstream": "packages/ui/src/forms/option-card-group.tsx",
+    "sha256": "9dca9f9bf550766471f5ad80d4479f24b97233ea9e24c9742c60dff2b7c01333"
+  },
+  "tuja-ui/src/forms/option-card.stylex.ts": {
+    "upstream": "packages/ui/src/forms/option-card.stylex.ts",
+    "sha256": "87af55b903613c99c987760a8e6f421385fa0b168bdf79fc2e344af1c48425af"
+  },
+  "tuja-ui/src/forms/option-card.tsx": {
+    "upstream": "packages/ui/src/forms/option-card.tsx",
+    "sha256": "e3e5ad6dfd2ba32536f681853ba6b15ecf3175fecb2ade8dcde22fda6bd9d49d"
+  },
+  "tuja-ui/src/forms/segment-track.stylex.ts": {
+    "upstream": "packages/ui/src/forms/segment-track.stylex.ts",
+    "sha256": "e3922d0f0fa6d9550f6d63d67228c138754e55c8204eb9cdbef02ebbdef91ce9"
+  },
+  "tuja-ui/src/forms/segmented-control.tsx": {
+    "upstream": "packages/ui/src/forms/segmented-control.tsx",
+    "sha256": "4040e10c0f3a1495e1f0ae192a20341ed35a86e06d8627d0be73a33624e33c4d"
+  },
+  "tuja-ui/src/forms/select.tsx": {
+    "upstream": "packages/ui/src/forms/select.tsx",
+    "sha256": "af52234388495b6877930fc640c3b4fa7c22437d33fcc794291280db921dc72a"
+  },
+  "tuja-ui/src/forms/selection-mark.tsx": {
+    "upstream": "packages/ui/src/forms/selection-mark.tsx",
+    "sha256": "5528492e1f8afcde26037c6918082aa54eeee5d39f13392b97151c376f303e9a"
+  },
+  "tuja-ui/src/forms/single-select-group.tsx": {
+    "upstream": "packages/ui/src/forms/single-select-group.tsx",
+    "sha256": "52af7b456fc42b4a8b41ed6291f25fc4056871868794242f41319ebe3deb90b6"
+  },
+  "tuja-ui/src/forms/slider.stylex.ts": {
+    "upstream": "packages/ui/src/forms/slider.stylex.ts",
+    "sha256": "cc884afee3766781d5e0a03c531aa99f37b2e5a0cb5fcf330d1b0b621aeb7364"
+  },
+  "tuja-ui/src/forms/slider.tsx": {
+    "upstream": "packages/ui/src/forms/slider.tsx",
+    "sha256": "f747948e5c6cde1d03b20297af098c9238f424ec0d4246b18d1bb8c63e52bdd1"
+  },
+  "tuja-ui/src/forms/switch.stylex.ts": {
+    "upstream": "packages/ui/src/forms/switch.stylex.ts",
+    "sha256": "477c13f356b28070e2fbea03ae729df1f0aa4eb547fd100a30874e185d4a6418"
+  },
+  "tuja-ui/src/forms/switch.tsx": {
+    "upstream": "packages/ui/src/forms/switch.tsx",
+    "sha256": "752d045fb2da46ef1f6c2f3a63d65bf58cfd045c90d9e91ec59f0e9e00ac0cea"
+  },
+  "tuja-ui/src/forms/text-field.tsx": {
+    "upstream": "packages/ui/src/forms/text-field.tsx",
+    "sha256": "077c55f72f5d875088323edf0a2504ec4daf2998ee987be00155fca0f7f2baf1"
+  },
+  "tuja-ui/src/forms/textarea.tsx": {
+    "upstream": "packages/ui/src/forms/textarea.tsx",
+    "sha256": "d4b66a16ea51b52e60e08a8f293d3568d92d8810a9dcbb0d1919f2d4c429e36a"
+  },
+  "tuja-ui/src/forms/use-field-aria.ts": {
+    "upstream": "packages/ui/src/forms/use-field-aria.ts",
+    "sha256": "b9b520843304ecfa69e3c9ae4e8a4edf2366e928fc0e6dfe796ea33285ba8e03"
+  },
+  "tuja-ui/src/forms/use-segment-track.ts": {
+    "upstream": "packages/ui/src/forms/use-segment-track.ts",
+    "sha256": "e5fb7b6a7a979654eb28e08670d16d061ea96bd1b7b8f42268a137b806b0f636"
+  },
+  "tuja-ui/src/get-scroll-behavior.ts": {
+    "upstream": "packages/ui/src/get-scroll-behavior.ts",
+    "sha256": "3a014f4111a1f3950921461977296de3bd94f1d4efbcc894c3647b11f9b97dec"
+  },
+  "tuja-ui/src/hooks/use-controlled.ts": {
+    "upstream": "packages/ui/src/hooks/use-controlled.ts",
+    "sha256": "36e62e767a5206a4b4dafbeef886153b5f433c5464a327d2abd01e120cbaeb20"
+  },
+  "tuja-ui/src/hooks/use-dialog-focus.ts": {
+    "upstream": "packages/ui/src/hooks/use-dialog-focus.ts",
+    "sha256": "87df5946bf06fd7f8ab35b52340e91a729935827098362750ef22980299fab4b"
+  },
+  "tuja-ui/src/hooks/use-disclosure.ts": {
+    "upstream": "packages/ui/src/hooks/use-disclosure.ts",
+    "sha256": "32dff28914ad7d6663a5386a75e14d3783e2084a64fed75858a4cee8da9f36de"
+  },
+  "tuja-ui/src/hooks/use-is-hydrated.ts": {
+    "upstream": "packages/ui/src/hooks/use-is-hydrated.ts",
+    "sha256": "c3a911c79c573da4ac4ce3f079090630b309f0026bcb4b62c6d01edabdf07638"
+  },
+  "tuja-ui/src/hooks/use-popover.ts": {
+    "upstream": "packages/ui/src/hooks/use-popover.ts",
+    "sha256": "beb10c34195e66529dbd07360db04137b3abc7b05b1a23e822ccf26916e3124d"
+  },
+  "tuja-ui/src/hooks/use-press-animation.ts": {
+    "upstream": "packages/ui/src/hooks/use-press-animation.ts",
+    "sha256": "3ccf0f630033aa49f2ef860c651b06cfa11d9ee6206c677052ff354ecc62b111"
+  },
+  "tuja-ui/src/hooks/use-press-handlers.ts": {
+    "upstream": "packages/ui/src/hooks/use-press-handlers.ts",
+    "sha256": "5b79e59180ab0087090a67cb9f2e1d3cbd79dc890d8d0ebd6d4d0b77149e6202"
+  },
+  "tuja-ui/src/hooks/use-radio-group.ts": {
+    "upstream": "packages/ui/src/hooks/use-radio-group.ts",
+    "sha256": "bf1c617fbad8a74e73ffd557ec5b2ab9dacc8def614d6679eabac63ba596482b"
+  },
+  "tuja-ui/src/hooks/use-scroll-mask.ts": {
+    "upstream": "packages/ui/src/hooks/use-scroll-mask.ts",
+    "sha256": "d7fce1d8996294439deb8123a2c1e72ab6725506b260f8b288d89f46196330e0"
+  },
+  "tuja-ui/src/hooks/use-visual-viewport.ts": {
+    "upstream": "packages/ui/src/hooks/use-visual-viewport.ts",
+    "sha256": "11c96287e903b413897806645adfd3c38f67703a3578513106ec3ede82622937"
+  },
+  "tuja-ui/src/md-query.ts": {
+    "upstream": "packages/ui/src/md-query.ts",
+    "sha256": "c2faff461ba17adf1c191d33974ad8dad796351a923e2d867640b1aa02e623e6"
+  },
+  "tuja-ui/src/merge-refs.ts": {
+    "upstream": "packages/ui/src/merge-refs.ts",
+    "sha256": "eef0edfbd26917257f9f35482f5333b8d0f463b13c76ad358a6d2d368a5727be"
+  },
+  "tuja-ui/src/motion/bind.ts": {
+    "upstream": "packages/ui/src/motion/bind.ts",
+    "sha256": "362fe36a5d7fb775f956da6df554b46e48e6ac0e69dadbd04dd9c9d3c51b4d69"
+  },
+  "tuja-ui/src/motion/create-frame-loop.ts": {
+    "upstream": "packages/ui/src/motion/create-frame-loop.ts",
+    "sha256": "c98c2128307836208764d9ae22dc2f4c603db8979065babce96eb7d8363915fc"
+  },
+  "tuja-ui/src/motion/create-frame-renderer.ts": {
+    "upstream": "packages/ui/src/motion/create-frame-renderer.ts",
+    "sha256": "e38fcd2babde8e03934f596ba4d8339c4526a1378263978f3c80475e0a26d257"
+  },
+  "tuja-ui/src/motion/create-motion-engine.ts": {
+    "upstream": "packages/ui/src/motion/create-motion-engine.ts",
+    "sha256": "1d746a18c71f95f3a4398c7685519c894a455e7ea628f0ddecc9e997b7309426"
+  },
+  "tuja-ui/src/motion/create-motion-value.ts": {
+    "upstream": "packages/ui/src/motion/create-motion-value.ts",
+    "sha256": "eb763353f0117d86315d09f72d88c6c5e521e1a422554909932d39d425e5df71"
+  },
+  "tuja-ui/src/motion/create-pending-snapshot.ts": {
+    "upstream": "packages/ui/src/motion/create-pending-snapshot.ts",
+    "sha256": "53771f00d4c3da6e0f06c157bc24a5bb42d8cf8679976a79b3285e07cbdaae86"
+  },
+  "tuja-ui/src/motion/create-waapi-renderer.ts": {
+    "upstream": "packages/ui/src/motion/create-waapi-renderer.ts",
+    "sha256": "0a7f1c584b6ce63db7bdcf0f8b107ca23b06bb6940e88a54b610e0ac3553a3d5"
+  },
+  "tuja-ui/src/motion/css-easing.ts": {
+    "upstream": "packages/ui/src/motion/css-easing.ts",
+    "sha256": "964521b19269417fe8a6cac0e6af4e4d48b0ec334b4f549cf94f37bae9d43192"
+  },
+  "tuja-ui/src/motion/css-tween.ts": {
+    "upstream": "packages/ui/src/motion/css-tween.ts",
+    "sha256": "c071dfb7c8764077a3d3a1d35b168f02045553c270d18ff3f185ebc3de62618a"
+  },
+  "tuja-ui/src/motion/fly-shared.ts": {
+    "upstream": "packages/ui/src/motion/fly-shared.ts",
+    "sha256": "ad4bc59d82f81209fcb9779bf2ce9a399b97ab8ed60554b86f54d2bf355fb5ad"
+  },
+  "tuja-ui/src/motion/mix.ts": {
+    "upstream": "packages/ui/src/motion/mix.ts",
+    "sha256": "70b14a515bf42acada02f62a490bfdf647b38c9001735fd01f2cec804cd5cafd"
+  },
+  "tuja-ui/src/motion/moving-marker.stylex.ts": {
+    "upstream": "packages/ui/src/motion/moving-marker.stylex.ts",
+    "sha256": "a0cf5b558ba0dc114c2b3bafa0a4e0dc6b736911169f28dc59a7c709eb864cde"
+  },
+  "tuja-ui/src/motion/pick-boxes.ts": {
+    "upstream": "packages/ui/src/motion/pick-boxes.ts",
+    "sha256": "c96cae8e2600264f748f5f68642951ac994544c3fc1ff944b8c2f193b10b700a"
+  },
+  "tuja-ui/src/motion/play-layout.ts": {
+    "upstream": "packages/ui/src/motion/play-layout.ts",
+    "sha256": "9b77093affbd65c12a889230d3fbce099ad5f4dd15ba11c056bd1f07e2043af8"
+  },
+  "tuja-ui/src/motion/prefers-reduced-motion.ts": {
+    "upstream": "packages/ui/src/motion/prefers-reduced-motion.ts",
+    "sha256": "1b6e8669f163aec6cfaf59b1167b51c163c0d5cbd5cb1b89fc088c91af8749c4"
+  },
+  "tuja-ui/src/motion/px.ts": {
+    "upstream": "packages/ui/src/motion/px.ts",
+    "sha256": "d4d5814b020e33db3f59851c835e020f36561873f26d0a34bd1417934736ad9b"
+  },
+  "tuja-ui/src/motion/sample-keyframes.ts": {
+    "upstream": "packages/ui/src/motion/sample-keyframes.ts",
+    "sha256": "f493e4440bd1895532a3aa3ca6abc90e050f37307d4379eda92f748531e78883"
+  },
+  "tuja-ui/src/motion/spring-path.ts": {
+    "upstream": "packages/ui/src/motion/spring-path.ts",
+    "sha256": "8a4eee7e4cab43935348f251f4fd4ebb1ccb8b45e704d9f0f0f52643f87809c7"
+  },
+  "tuja-ui/src/motion/spring-roles.ts": {
+    "upstream": "packages/ui/src/motion/spring-roles.ts",
+    "sha256": "bfb39d44269d6c8db5b0c41446b09db4f887c9571b499c4b4077d675e664fcf2"
+  },
+  "tuja-ui/src/motion/use-binding.ts": {
+    "upstream": "packages/ui/src/motion/use-binding.ts",
+    "sha256": "50810d02318f651060876a1d1b06b1dba92196ae31f07b67e87748b483a7275f"
+  },
+  "tuja-ui/src/motion/use-motion-engine.ts": {
+    "upstream": "packages/ui/src/motion/use-motion-engine.ts",
+    "sha256": "5ec4d9fa75724d3350d5f7234a92d4448a0fa134e0db53afc98aa57131c718a2"
+  },
+  "tuja-ui/src/motion/use-reduced-motion.ts": {
+    "upstream": "packages/ui/src/motion/use-reduced-motion.ts",
+    "sha256": "27cf14f61e4dfcf0288448697e5e6ae40e4abe86480dab13e4261507c0d6bf9e"
+  },
+  "tuja-ui/src/primitives/a11y.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/a11y.stylex.ts",
+    "sha256": "4a989c89e042c73a5b4a982d95231a27453e6bacce466a0d58b092ff0e9d5e23"
+  },
+  "tuja-ui/src/primitives/corner.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/corner.stylex.ts",
+    "sha256": "67a45f7fa4592a0e46bf3d457a6cb21f37124f7a7e316786ace1373924f07057"
+  },
+  "tuja-ui/src/primitives/flex.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/flex.stylex.ts",
+    "sha256": "d66f4b1e0e4958aa42bc722f97d40a34d51bfbe9dc7185aac45709d9017f351e"
+  },
+  "tuja-ui/src/primitives/layout.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/layout.stylex.ts",
+    "sha256": "0993c778e420a577641fed76414a58446bde5d64569debca97f75055f5cdd86c"
+  },
+  "tuja-ui/src/primitives/motion.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/motion.stylex.ts",
+    "sha256": "8446b879dcacfd47de00e0f670f1591fb57184f4e105066466366cecc6b4d1a4"
+  },
+  "tuja-ui/src/primitives/page-column.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/page-column.stylex.ts",
+    "sha256": "920fa0504b58989dd222fe1978c6d2e7a1afc91e513caea19c857b58ffbcf17a"
+  },
+  "tuja-ui/src/primitives/reset.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/reset.stylex.ts",
+    "sha256": "bd0db38deeaef359f2b87b7a3ade7e2a260b26fd44da74cafd3278d0c31d54a6"
+  },
+  "tuja-ui/src/primitives/root.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/root.stylex.ts",
+    "sha256": "8a12e1b2c84de197f98a01c9ec192c6de4ba568f8977c46fb89c4012b2bb4955"
+  },
+  "tuja-ui/src/primitives/selected-selector.ts": {
+    "upstream": "packages/ui/src/primitives/selected-selector.ts",
+    "sha256": "96733807aecd30379b6093baa2c633b390575025ee055bd58a7f0d6579023f13"
+  },
+  "tuja-ui/src/primitives/selected.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/selected.stylex.ts",
+    "sha256": "5ab9ea4d1f4330c19733ffb01389535d330fc522a9fceb7b0495e8774360f89a"
+  },
+  "tuja-ui/src/primitives/stack.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/stack.stylex.ts",
+    "sha256": "c27e27525fd3380ccc6d92cbe9be4e9bd3c8a248910b06e4b26ec8afc86cf312"
+  },
+  "tuja-ui/src/primitives/texture.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/texture.stylex.ts",
+    "sha256": "d8abc0abf7c78b5fcdd4fd347d6a6e2ab50fc01b895b83b289f87b26ee129066"
+  },
+  "tuja-ui/src/primitives/type.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/type.stylex.ts",
+    "sha256": "048e735039e49b10d08577e8f5d2b0b98dfedd7e301bca057e1689eb96751b37"
+  },
+  "tuja-ui/src/primitives/wash.stylex.ts": {
+    "upstream": "packages/ui/src/primitives/wash.stylex.ts",
+    "sha256": "687f4bdee5762a9d48f8ccb322f7744fda2f23f409e4caf28337aeec5f350a3f"
+  },
+  "tuja-ui/src/shells/claim-edge-swipe.ts": {
+    "upstream": "packages/ui/src/shells/claim-edge-swipe.ts",
+    "sha256": "9fe2d148ebc1dcfdfe2308860d3d7980331872c979a6e7e68ff794a342edbc64"
+  },
+  "tuja-ui/src/shells/create-page-scroll.ts": {
+    "upstream": "packages/ui/src/shells/create-page-scroll.ts",
+    "sha256": "081520c00bdb79f84912cc7d3a389ac7c3e4e2d00fe2ba0fcdaa66f3d6856053"
+  },
+  "tuja-ui/src/shells/create-split-view-motion.ts": {
+    "upstream": "packages/ui/src/shells/create-split-view-motion.ts",
+    "sha256": "11929621fc47274e9d760cbbae65a2327d151ed52051371886d78e26ce1a98e3"
+  },
+  "tuja-ui/src/shells/drawer.tsx": {
+    "upstream": "packages/ui/src/shells/drawer.tsx",
+    "sha256": "1419f50c1c67035b6a1bc58f78cd33ff066be13b3bc036c1521c4130e90b9305"
+  },
+  "tuja-ui/src/shells/follow-page.ts": {
+    "upstream": "packages/ui/src/shells/follow-page.ts",
+    "sha256": "ea5dd09deb01fd26edfe5813b309560775bb918a0a76e156aa20bf1c1bcaade1"
+  },
+  "tuja-ui/src/shells/header-controls.tsx": {
+    "upstream": "packages/ui/src/shells/header-controls.tsx",
+    "sha256": "d095638b7d2af1b565cfcc69ddc737e3a084f17834f340688f7fbb2a8637c624"
+  },
+  "tuja-ui/src/shells/header-footer-layout.tsx": {
+    "upstream": "packages/ui/src/shells/header-footer-layout.tsx",
+    "sha256": "abf148c5947f92be80cd15a7ee5036db29af0e1db6922be03fe9c6f9bef5ee30"
+  },
+  "tuja-ui/src/shells/lift-origin.ts": {
+    "upstream": "packages/ui/src/shells/lift-origin.ts",
+    "sha256": "6ccc516eca1b2d784fd5c1531fb8dd14c6093cc7aa1d3ecaac84f105dcc08960"
+  },
+  "tuja-ui/src/shells/navigation-split-view-layout.stylex.ts": {
+    "upstream": "packages/ui/src/shells/navigation-split-view-layout.stylex.ts",
+    "sha256": "7fd0033a82ce1f534a16663e2a9a80b6280d56faf479ffb32a4a50c86e86c2fb"
+  },
+  "tuja-ui/src/shells/navigation-split-view.stylex.ts": {
+    "upstream": "packages/ui/src/shells/navigation-split-view.stylex.ts",
+    "sha256": "e2114ccd2dc737332d72c74ce4ed3e5997e69bf760f75d7346a8d572e1c38cb4"
+  },
+  "tuja-ui/src/shells/navigation-split-view.tsx": {
+    "upstream": "packages/ui/src/shells/navigation-split-view.tsx",
+    "sha256": "8724dde1d68b30f1e706134af1a65301766c03e2eb71f719dd6c35b02c26d873"
+  },
+  "tuja-ui/src/shells/normalize-url.ts": {
+    "upstream": "packages/ui/src/shells/normalize-url.ts",
+    "sha256": "349d53ab44e93731c8e8ad3a2c47b1c992a84bb9e438b062fe26a927b659653d"
+  },
+  "tuja-ui/src/shells/sidebar-layout.tsx": {
+    "upstream": "packages/ui/src/shells/sidebar-layout.tsx",
+    "sha256": "58fe1da2efbdcdbb8067008d3ddb8dabd62eeda89218950cda7f27cf91f3d0cf"
+  },
+  "tuja-ui/src/shells/tab-view.stylex.ts": {
+    "upstream": "packages/ui/src/shells/tab-view.stylex.ts",
+    "sha256": "8a572b70bad61a44328e7859610ba39544c6f9397acf8aa3938e9de41eb961d1"
+  },
+  "tuja-ui/src/shells/tab-view.tsx": {
+    "upstream": "packages/ui/src/shells/tab-view.tsx",
+    "sha256": "a09e99ff8664fcfabbfd69c0e04f909566ed9a83f10e96d58aaa8bae54da4c03"
+  },
+  "tuja-ui/src/shells/use-page-scrolled.ts": {
+    "upstream": "packages/ui/src/shells/use-page-scrolled.ts",
+    "sha256": "888de0cd1d14dae72fa8bd9ec2260c7b650a6bb5089aeba98966be22cbd3a21d"
+  },
+  "tuja-ui/src/surfaces/blur-layer-steps.ts": {
+    "upstream": "packages/ui/src/surfaces/blur-layer-steps.ts",
+    "sha256": "d8490f807fe05455540c4de75df41fa5ad38f8fa5c22b1559029a27dfca9c0bf"
+  },
+  "tuja-ui/src/surfaces/blur-plane-provider.tsx": {
+    "upstream": "packages/ui/src/surfaces/blur-plane-provider.tsx",
+    "sha256": "142c102ca6ff2eab33e6b0f0561e65c4ff948e3a5c11d44ef5c5f930f55551c0"
+  },
+  "tuja-ui/src/surfaces/blur-plane.tsx": {
+    "upstream": "packages/ui/src/surfaces/blur-plane.tsx",
+    "sha256": "45efca16907b093cb89f0134caf85e4a3f366fef536b8644c34b372f66644f8c"
+  },
+  "tuja-ui/src/surfaces/build-blur-layers.ts": {
+    "upstream": "packages/ui/src/surfaces/build-blur-layers.ts",
+    "sha256": "9eb01e1cbeca341d542f38f17d095f05385a11849de6e68d2e779493a6fdd79e"
+  },
+  "tuja-ui/src/surfaces/build-edge-blur-layers.ts": {
+    "upstream": "packages/ui/src/surfaces/build-edge-blur-layers.ts",
+    "sha256": "d04de613f5ae084e1493f9bc7b94c04155af537c5255b7123632b220e0449458"
+  },
+  "tuja-ui/src/surfaces/card-content.tsx": {
+    "upstream": "packages/ui/src/surfaces/card-content.tsx",
+    "sha256": "892a975b74b04b1461088295b4d4bbaf674535107d199a9d4f3ec55a10d29a10"
+  },
+  "tuja-ui/src/surfaces/card-description.tsx": {
+    "upstream": "packages/ui/src/surfaces/card-description.tsx",
+    "sha256": "9272b4be438526851abda138aab8b2a105037d504a84aa4ae2d08c86ca801827"
+  },
+  "tuja-ui/src/surfaces/card-footer.tsx": {
+    "upstream": "packages/ui/src/surfaces/card-footer.tsx",
+    "sha256": "4ff21fdd579c1b3806fd64070806c68e05f77f4a1ac51f90cbd9823b025880e3"
+  },
+  "tuja-ui/src/surfaces/card-header.tsx": {
+    "upstream": "packages/ui/src/surfaces/card-header.tsx",
+    "sha256": "e2e1bbbbc21d7181bda7cef03bf6b753d39d924a401864a439da41c535dd9803"
+  },
+  "tuja-ui/src/surfaces/card-title.tsx": {
+    "upstream": "packages/ui/src/surfaces/card-title.tsx",
+    "sha256": "b48ba1217620e96d80e8eaf27ce7fcb3974ba6c6c05ce570668150c29de17bdb"
+  },
+  "tuja-ui/src/surfaces/card.stylex.ts": {
+    "upstream": "packages/ui/src/surfaces/card.stylex.ts",
+    "sha256": "33ecf4d25504bed08a79b66d5d5c8a2c5706f5274ad4f6d99a008da286c2c8af"
+  },
+  "tuja-ui/src/surfaces/card.tsx": {
+    "upstream": "packages/ui/src/surfaces/card.tsx",
+    "sha256": "608cbbe9d2514d5628a7cdb446f015a1d8a17cdb8ab8dbff5b8112203e598a25"
+  },
+  "tuja-ui/src/surfaces/compute-popover-position.ts": {
+    "upstream": "packages/ui/src/surfaces/compute-popover-position.ts",
+    "sha256": "6bbafb7eb29b529ace114c2fa01933abdd84ea030f48b4d91ee1d685e8d8493d"
+  },
+  "tuja-ui/src/surfaces/control-group-blur.tsx": {
+    "upstream": "packages/ui/src/surfaces/control-group-blur.tsx",
+    "sha256": "13fe07c480cdf3e09f256d7f71473818116714fbb0ed3c4b8005061a35426ec8"
+  },
+  "tuja-ui/src/surfaces/create-sheet-lift.ts": {
+    "upstream": "packages/ui/src/surfaces/create-sheet-lift.ts",
+    "sha256": "2b3af240f3313808af49b66f0b5edbbc4bd023ffde373448d0b70726614f1065"
+  },
+  "tuja-ui/src/surfaces/create-sheet-motion.ts": {
+    "upstream": "packages/ui/src/surfaces/create-sheet-motion.ts",
+    "sha256": "bdb8555e4e2f0ea50dd908036e0c09166d3e90637f3d914f628ad4e2bd4c797c"
+  },
+  "tuja-ui/src/surfaces/disclosure.tsx": {
+    "upstream": "packages/ui/src/surfaces/disclosure.tsx",
+    "sha256": "82c3b740aa374ff58ae3f58ae17e65ae7c4b22402c5f7a4cb1903793956ab3df"
+  },
+  "tuja-ui/src/surfaces/divider.tsx": {
+    "upstream": "packages/ui/src/surfaces/divider.tsx",
+    "sha256": "81752bff8e02aa0fe34ea48a8da215a379c3a987360760462100ac9b8738beb8"
+  },
+  "tuja-ui/src/surfaces/fixed-container-content.tsx": {
+    "upstream": "packages/ui/src/surfaces/fixed-container-content.tsx",
+    "sha256": "a0a18f74b12abe24a730f9ec3fbea35e64f976088b184e53c68caea90337a231"
+  },
+  "tuja-ui/src/surfaces/glass-surface.stylex.ts": {
+    "upstream": "packages/ui/src/surfaces/glass-surface.stylex.ts",
+    "sha256": "6d08a6cbbb5246fc37a017bb52d51c193492e9d368654f2da5573a5f717596d0"
+  },
+  "tuja-ui/src/surfaces/island.stylex.ts": {
+    "upstream": "packages/ui/src/surfaces/island.stylex.ts",
+    "sha256": "8932a2295aaa8cd8e66b7665e55cd78234a63825dd61e2384903a82ec771b140"
+  },
+  "tuja-ui/src/surfaces/lock-page-scroll.ts": {
+    "upstream": "packages/ui/src/surfaces/lock-page-scroll.ts",
+    "sha256": "15ec9b3c3f57e1e1c65874543068e3bc6a1dccab4c64cd6b5600c158937df6e7"
+  },
+  "tuja-ui/src/surfaces/mask-band.tsx": {
+    "upstream": "packages/ui/src/surfaces/mask-band.tsx",
+    "sha256": "e1864bc497cd9dfd962574a2816de2158ac4f97d410a397eae0ce55ae9c5d814"
+  },
+  "tuja-ui/src/surfaces/measure-geometry.ts": {
+    "upstream": "packages/ui/src/surfaces/measure-geometry.ts",
+    "sha256": "8bb68ac55acbfbcfecedcb6cafe90856f46b1b062ff42e446cba6b9aea3563ec"
+  },
+  "tuja-ui/src/surfaces/observe-children.ts": {
+    "upstream": "packages/ui/src/surfaces/observe-children.ts",
+    "sha256": "093a1f17e8111410e2323c35ce92eb70334e5a4044bf255191007e4d431a99d7"
+  },
+  "tuja-ui/src/surfaces/observe-viewport.ts": {
+    "upstream": "packages/ui/src/surfaces/observe-viewport.ts",
+    "sha256": "68871708129e48188bb34fdaa52672a6040f2ec08757a0bfa1c0d902340c8e63"
+  },
+  "tuja-ui/src/surfaces/place-fixed-box.ts": {
+    "upstream": "packages/ui/src/surfaces/place-fixed-box.ts",
+    "sha256": "b4338a286e2ccd34e1d824be02f793573e07beb09b91a0536a7f54930aa6a1ef"
+  },
+  "tuja-ui/src/surfaces/popover-surface.stylex.ts": {
+    "upstream": "packages/ui/src/surfaces/popover-surface.stylex.ts",
+    "sha256": "654fe35f8f80a507617fdee07b3ce7d0bdadd0a84eacf347194bd7eb1e6c1736"
+  },
+  "tuja-ui/src/surfaces/popover.tsx": {
+    "upstream": "packages/ui/src/surfaces/popover.tsx",
+    "sha256": "50f8bfbec115ab4f0e42703a036d82ec8b81a9e5887e0e55ffc68c9983e9ca22"
+  },
+  "tuja-ui/src/surfaces/portal.tsx": {
+    "upstream": "packages/ui/src/surfaces/portal.tsx",
+    "sha256": "c2dfb78c56653f4ef0936c20c7dc0339d1a1e7cb4e8db08308d74530156c8102"
+  },
+  "tuja-ui/src/surfaces/progressive-blur.tsx": {
+    "upstream": "packages/ui/src/surfaces/progressive-blur.tsx",
+    "sha256": "d5f9b318f1f6e8802feb78d448f2f814b3c7d3ad0a8729c9afe4825ec8be8d8d"
+  },
+  "tuja-ui/src/surfaces/scroll-button.tsx": {
+    "upstream": "packages/ui/src/surfaces/scroll-button.tsx",
+    "sha256": "738a4924d43e66a30fadc02400554ccd7137357587ad0f279e17c1db1c08187f"
+  },
+  "tuja-ui/src/surfaces/scroll-mask.tsx": {
+    "upstream": "packages/ui/src/surfaces/scroll-mask.tsx",
+    "sha256": "e6ca9563db31de0c4e95beea958fe2847d9974f3e3f0f7b55b53ede79c0e0815"
+  },
+  "tuja-ui/src/surfaces/section-heading.tsx": {
+    "upstream": "packages/ui/src/surfaces/section-heading.tsx",
+    "sha256": "307ab0336ac62388c169fdc9735002a0ff30b6628d4d966fc68fd37eca40ef75"
+  },
+  "tuja-ui/src/surfaces/section.tsx": {
+    "upstream": "packages/ui/src/surfaces/section.tsx",
+    "sha256": "bfdb551a862d4f15f51fdec2f856d7c28bbe71695d448308f96d7c59aa3ee93a"
+  },
+  "tuja-ui/src/surfaces/sheet-recede-context.ts": {
+    "upstream": "packages/ui/src/surfaces/sheet-recede-context.ts",
+    "sha256": "d75fcacb252b92e4ec0fafe0f30edd1f8e05f62369ea251d20e2a10aa962da9f"
+  },
+  "tuja-ui/src/surfaces/sheet.tsx": {
+    "upstream": "packages/ui/src/surfaces/sheet.tsx",
+    "sha256": "98059f0b71756b9517f9dbdb68221b4a09f8e923ed214858956d880d467daa39"
+  },
+  "tuja-ui/src/surfaces/should-dismiss.ts": {
+    "upstream": "packages/ui/src/surfaces/should-dismiss.ts",
+    "sha256": "1afc887c0309fa73e08636b77b4f6922eabafce43aa16ef29c1bf6a7b18c6054"
+  },
+  "tuja-ui/src/surfaces/sticky-control-group.tsx": {
+    "upstream": "packages/ui/src/surfaces/sticky-control-group.tsx",
+    "sha256": "384a00411a2adf32259b56d2f13ca9e4994ca9ea7fd8c2ef72fd90053751e653"
+  },
+  "tuja-ui/src/surfaces/sticky-controls.tsx": {
+    "upstream": "packages/ui/src/surfaces/sticky-controls.tsx",
+    "sha256": "013a4460a2cb2e68e4586686e03d1e0fbcdcd589f17da7da24e9e0df0afe2cd4"
+  },
+  "tuja-ui/src/surfaces/use-sheet-drag.ts": {
+    "upstream": "packages/ui/src/surfaces/use-sheet-drag.ts",
+    "sha256": "9c265d9ba42e1f7b003d79ceafbb86b0170b03c942bb8b151a5233363935a8d8"
+  },
+  "tuja-ui/src/surfaces/use-sheet-motion.ts": {
+    "upstream": "packages/ui/src/surfaces/use-sheet-motion.ts",
+    "sha256": "caa708b5f6ddcc55906dd210fdc0dc1f0401a1fb3425d445c9d718e8fc6c07c4"
+  },
+  "tuja-ui/src/test-support/clock-at.ts": {
+    "upstream": "packages/ui/src/test-support/clock-at.ts",
+    "sha256": "204222eabc94274ba337d511e21a4e4c10fbb012b83420b8977aca4ed80e5714"
+  },
+  "tuja-ui/src/test-support/install-jsdom-shims.ts": {
+    "upstream": "packages/ui/src/test-support/install-jsdom-shims.ts",
+    "sha256": "3aad38f1937a3583a0c9528c7c36bcacfb3a6ce5e4d216aaa606397de4a20d92"
+  },
+  "tuja-ui/src/test-support/lay-out.ts": {
+    "upstream": "packages/ui/src/test-support/lay-out.ts",
+    "sha256": "c66e9e09365c8056bb47e0808ffdb4ce66c474a855295db61d7b9caa58200eac"
+  },
+  "tuja-ui/src/test-support/mount-segment-track.ts": {
+    "upstream": "packages/ui/src/test-support/mount-segment-track.ts",
+    "sha256": "bc854716d3d3e9403e3415c82baef845758a3c18ee1ebd8ba453d6595c676f39"
+  },
+  "tuja-ui/src/tokens.stylex.ts": {
+    "upstream": "packages/ui/src/tokens.stylex.ts",
+    "sha256": "18fe6eb125335ca08fbbd97ebdcf7ce7e92cf53e22b0de50ce5b67ec8966463c"
+  },
+  "tuja-ui/src/types.ts": {
+    "upstream": "packages/ui/src/types.ts",
+    "sha256": "7f3c4595e1dd6fa01bf09b0106cfc9ff3f57870253a3ea095098c711d027853c"
+  },
+  "babel-plugins/src/stylex-breakpoints/index.js": {
+    "upstream": "packages/babel-plugins/src/stylex-breakpoints/index.js",
+    "sha256": "2d5a6c76604aeeadca8f7bb1b2d57b96e16275596b3fc7c6fff00b7ede579054"
+  },
+  "babel-plugins/src/stylex-options/index.js": {
+    "upstream": "packages/babel-plugins/src/stylex-options/index.js",
+    "sha256": "4032e2aab7ca98dcdc71a223a24e6c7b7f496b8f76218488304a1786d46751be"
+  },
+  "babel-plugins/src/stylex-plugins/index.js": {
+    "upstream": "packages/babel-plugins/src/stylex-plugins/index.js",
+    "sha256": "97d925e072b36701c3888bf222ed7233aeafa67627551065477879a4cab45cea"
+  }
+}

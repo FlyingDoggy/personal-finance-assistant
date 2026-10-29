@@ -1,0 +1,263 @@
+import {
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+  type RefObject,
+  type PointerEvent as ReactPointerEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+} from "react";
+import { duration } from "../primitives/motion.stylex.ts";
+
+// Parsed off the same token so it cannot drift from the `transform` leg of
+// `pressTransition` in `button-shared.stylex.ts`.
+const PRESS_ANIMATION_DURATION = Number.parseInt(duration._150, 10);
+
+const MAX_NUDGE_OFFSET = 4;
+
+function isPointerOutside(
+  rect: DOMRect | undefined,
+  clientX: number,
+  clientY: number,
+): boolean {
+  return (
+    !rect ||
+    clientX < rect.left ||
+    clientX > rect.right ||
+    clientY < rect.top ||
+    clientY > rect.bottom
+  );
+}
+
+interface UsePressAnimationOptions<T extends HTMLElement> {
+  disabled?: boolean;
+  targetRef: RefObject<T | null>;
+}
+
+interface UsePressAnimationReturn<T extends HTMLElement> {
+  isPressed: boolean;
+  releasedOutside: boolean;
+  nudgeOffset: { x: number; y: number };
+  handlers: {
+    onPointerDown: (event: ReactPointerEvent<T>) => void;
+    onPointerUp: (event: ReactPointerEvent<T>) => void;
+    onPointerMove: (event: ReactPointerEvent<T>) => void;
+    onKeyDown: (event: KeyboardEvent<T>) => void;
+    onKeyUp: (event: KeyboardEvent<T>) => void;
+    onContextMenu: (event: MouseEvent<T>) => void;
+  };
+  /** Returns true if click should be allowed, false if it was released outside */
+  shouldAllowClick: () => boolean;
+}
+
+export function usePressAnimation<T extends HTMLElement>({
+  disabled,
+  targetRef,
+}: UsePressAnimationOptions<T>): UsePressAnimationReturn<T> {
+  const pressStartTimeRef = useRef<number>(0);
+  const releaseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pointerIdRef = useRef<number | null>(null);
+  const isPressedRef = useRef(false);
+  const releasedOutsideRef = useRef(false);
+  // Element bounds captured once at press start, so pointer-move doesn't force
+  // a synchronous layout read (`getBoundingClientRect`) on every event.
+  const pressRectRef = useRef<DOMRect | null>(null);
+
+  const [isPressed, setIsPressed] = useState(false);
+  const [releasedOutside, setReleasedOutside] = useState(false);
+  const [nudgeOffset, setNudgeOffset] = useState({ x: 0, y: 0 });
+  // Mirrors `nudgeOffset` so `applyNudge` can skip no-op state updates without
+  // reading render-scoped state — pointer-move fires dozens of times a second
+  // and an unchanged offset must not trigger a re-render.
+  const nudgeOffsetRef = useRef({ x: 0, y: 0 });
+
+  function applyNudge(x: number, y: number) {
+    if (nudgeOffsetRef.current.x === x && nudgeOffsetRef.current.y === y) {
+      return;
+    }
+    nudgeOffsetRef.current = { x, y };
+    setNudgeOffset({ x, y });
+  }
+
+  function clearReleaseTimeout() {
+    if (releaseTimeoutRef.current !== null) {
+      clearTimeout(releaseTimeoutRef.current);
+      releaseTimeoutRef.current = null;
+    }
+  }
+
+  function handlePress() {
+    if (disabled) return;
+    clearReleaseTimeout();
+
+    const el = targetRef.current;
+
+    if (isPressedRef.current && el) {
+      // Instant reset: disable transition, force scale 1.0
+      el.style.transition = "none";
+      el.style.transform = "scale(1) translate(0, 0)";
+      el.style.filter = "brightness(1)";
+
+      // Force browser to synchronously commit the scale(1) state
+      el.getBoundingClientRect();
+
+      // Re-enable transition and clear inline styles
+      // CSS sees value change: scale(1) → scale(1.05) → animates
+      el.style.transition = "";
+      el.style.transform = "";
+      el.style.filter = "";
+    }
+
+    setIsPressed(true);
+    isPressedRef.current = true;
+    setReleasedOutside(false);
+    applyNudge(0, 0);
+    pressStartTimeRef.current = performance.now();
+  }
+
+  function handleRelease(isOutside: boolean) {
+    if (!isPressedRef.current) return;
+
+    const elapsed = performance.now() - pressStartTimeRef.current;
+    const remaining = PRESS_ANIMATION_DURATION - elapsed;
+
+    if (remaining > 0) {
+      // Quick click: wait for press animation to complete
+      setReleasedOutside(isOutside);
+      releaseTimeoutRef.current = setTimeout(() => {
+        setIsPressed(false);
+        isPressedRef.current = false;
+        applyNudge(0, 0);
+      }, remaining);
+    } else {
+      // Normal release
+      setReleasedOutside(isOutside);
+      setIsPressed(false);
+      isPressedRef.current = false;
+      applyNudge(0, 0);
+    }
+  }
+
+  function onPointerDown(event: ReactPointerEvent<T>) {
+    if (disabled) return;
+
+    // Capture pointer to receive pointerup even outside the element
+    targetRef.current?.setPointerCapture(event.pointerId);
+    pointerIdRef.current = event.pointerId;
+    handlePress();
+    // Snapshot the bounds now so pointer-move can reuse them instead of
+    // measuring layout on every event.
+    pressRectRef.current = targetRef.current?.getBoundingClientRect() ?? null;
+  }
+
+  function onPointerUp(event: ReactPointerEvent<T>) {
+    if (pointerIdRef.current !== null) {
+      targetRef.current?.releasePointerCapture(pointerIdRef.current);
+      pointerIdRef.current = null;
+    }
+    // Check actual pointer position since pointerleave doesn't fire with pointer capture
+    const rect = targetRef.current?.getBoundingClientRect();
+    const isOutside = isPointerOutside(rect, event.clientX, event.clientY);
+    releasedOutsideRef.current = isOutside; // Set synchronously before click fires
+    handleRelease(isOutside);
+  }
+
+  function onPointerMove(event: ReactPointerEvent<T>) {
+    if (!isPressed) return;
+
+    // Reuse the bounds captured at press start (see onPointerDown) rather than
+    // reading layout on every move.
+    const rect = pressRectRef.current;
+    if (!rect) return;
+
+    // Snap back to rest while the pointer is inside the button.
+    if (!isPointerOutside(rect, event.clientX, event.clientY)) {
+      applyNudge(0, 0);
+      return;
+    }
+
+    // Nudge toward the pointer, capped at MAX_NUDGE_OFFSET.
+    const dx = event.clientX - (rect.left + rect.width / 2);
+    const dy = event.clientY - (rect.top + rect.height / 2);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance > 0) {
+      const scale = Math.min(MAX_NUDGE_OFFSET / distance, 1);
+      applyNudge(dx * scale, dy * scale);
+    }
+  }
+
+  function onKeyDown(event: KeyboardEvent<T>) {
+    if (disabled) return;
+    if (event.key === "Enter" || event.key === " ") {
+      // Prevent space from scrolling the page
+      if (event.key === " ") {
+        event.preventDefault();
+      }
+      handlePress();
+    }
+  }
+
+  function onKeyUp(event: KeyboardEvent<T>) {
+    if (event.key === "Enter" || event.key === " ") {
+      handleRelease(false);
+    }
+  }
+
+  // Prevent context menu from interrupting the press state
+  function onContextMenu(_event: MouseEvent<T>) {
+    if (isPressed) {
+      handleRelease(true);
+    }
+  }
+
+  // Returns true if click should be allowed, resets the flag
+  function shouldAllowClick() {
+    if (releasedOutsideRef.current) {
+      releasedOutsideRef.current = false;
+      return false;
+    }
+    return true;
+  }
+
+  // Cleanup timeout on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (releaseTimeoutRef.current !== null) {
+        clearTimeout(releaseTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Release press state when window loses focus (e.g., Alt-Tab).
+  const releaseOnBlur = useEffectEvent(() => {
+    if (isPressedRef.current) {
+      handleRelease(true);
+    }
+  });
+
+  useEffect(() => {
+    const handleWindowBlur = () => {
+      releaseOnBlur();
+    };
+    window.addEventListener("blur", handleWindowBlur);
+    return () => {
+      window.removeEventListener("blur", handleWindowBlur);
+    };
+  }, []);
+
+  return {
+    isPressed,
+    releasedOutside,
+    nudgeOffset,
+    handlers: {
+      onPointerDown,
+      onPointerUp,
+      onPointerMove,
+      onKeyDown,
+      onKeyUp,
+      onContextMenu,
+    },
+    shouldAllowClick,
+  };
+}

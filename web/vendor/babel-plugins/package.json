@@ -1,0 +1,12 @@
+{
+  "name": "@tuja/babel-plugins",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "license": "MIT",
+  "exports": {
+    "./stylex-options": "./src/stylex-options/index.js",
+    "./stylex-plugins": "./src/stylex-plugins/index.js",
+    "./stylex-breakpoints": "./src/stylex-breakpoints/index.js"
+  }
+}

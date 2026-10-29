@@ -1,0 +1,36 @@
+{
+  "name": "shenghuo-ledger",
+  "private": true,
+  "version": "0.5.0-alpha.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "2.1.10",
+    "@stylexjs/stylex": "0.19.1",
+    "@tuja/ui": "file:vendor/tuja-ui",
+    "modern-normalize": "3.0.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-remove-scroll": "2.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/parser": "^7.29.7",
+    "@babel/traverse": "^7.29.7",
+    "@stylexjs/babel-plugin": "0.19.1",
+    "@stylexjs/postcss-plugin": "0.19.1",
+    "@types/dom-navigation": "^1.0.7",
+    "@types/node": "^24.0.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@webgpu/types": "0.1.74",
+    "prettier": "^3.9.10",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}

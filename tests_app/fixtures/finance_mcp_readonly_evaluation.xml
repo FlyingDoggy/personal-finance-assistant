@@ -1,0 +1,15 @@
+<evaluation>
+  <!-- Fixed synthetic fixture only. Seed finance_mcp_evaluation.py, provide its scope_id,
+       and expose only list_work_items/get_work_context. Do not claim or submit.
+       Gold answers verified by protocol fixture inspection, not an LLM quality run. -->
+  <qa_pair><question>在给定合成 scope_id 中用每页最多 7 项遍历全部任务，核对无重复 ID。共有多少个已准备的独立交易？只返回整数。</question><answer>100</answer></qa_pair>
+  <qa_pair><question>逐项查看同一合成范围的来源 merchant 字段。有多少个任务的商户名称恰好是两个汉字？不要将 description 或 product 当商户名。只返回整数。</question><answer>24</answer></qa_pair>
+  <qa_pair><question>找出聚合平台的订单，其商品是一件纯棉上衣。结合该任务实际商品证据与允许科目，它应使用哪个科目代码？不要用平台常见业务替代商品用途。</question><answer>5005</answer></qa_pair>
+  <qa_pair><question>找出四个商户名称完全相同、但商品分别属于衣物、运动场、医疗检查和理发的订单。这个共有商户的名称是什么？只返回商户名称。</question><answer>美团</answer></qa_pair>
+  <qa_pair><question>遍历这个范围所有任务的来源语义字段，有多少笔只有平台/交易通用描述，没有任何非空 product 字段可用作具体商品证据？只返回整数。</question><answer>20</answer></qa_pair>
+  <qa_pair><question>使用所有分页的上下文金额，只计算准备范围内的 100 笔消费，排除未进入队列的人工决定与退款。正数消费合计是多少分？只返回规范整数。</question><answer>283150</answer></qa_pair>
+  <qa_pair><question>比较准备范围内每笔消费的绝对金额，金额最大的交易 target.id 是什么？只返回该稳定交易 ID。</question><answer>eval-subjective-10</answer></qa_pair>
+  <qa_pair><question>找到已独立缴纳、且证据明确未包括在工资扣缴中的税费任务，再核对上下文允许科目。其合适的费用科目代码是什么？只返回代码。</question><answer>5014</answer></qa_pair>
+  <qa_pair><question>检查不同分页、不同商户任务的上下文允许科目表。系统保留的未分类科目是否允许作为成功分类提交的最终科目？仅返回 True 或 False。</question><answer>False</answer></qa_pair>
+  <qa_pair><question>本次仅调用 list_work_items 和不带 lease_token 的 get_work_context，检查所有上下文的 read_only 与任务状态。是否已经取得任一可直接提交分类的有效租约？仅返回 True 或 False。</question><answer>False</answer></qa_pair>
+</evaluation>

@@ -1,0 +1,32 @@
+# Private financial data and generated deliverables stay local.
+data/
+outputs/
+work/
+tmp/
+dist/
+# Personal one-off workbook generators remain local; application/generic code is versioned.
+/scripts/prepare_daily_review.py
+/scripts/prepare_finance_workbook.py
+# Runtime secrets and generated state are never part of a source release.
+.env
+.env.*
+!.env.example
+*.token
+*.pem
+*.key
+.codex/
+.mcp.json
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.tsbuildinfo
+node_modules/
+node_modules
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+web/dist/
+*.egg-info/
+.DS_Store

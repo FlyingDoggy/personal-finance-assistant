@@ -1,0 +1,4 @@
+# Markdown intentionally uses two spaces for hard line breaks.
+*.md whitespace=-blank-at-eol
+# Keep the upstream font license byte-for-byte, including its CRLF endings.
+web/vendor/assets/IBM-Plex-OFL.txt whitespace=cr-at-eol,-blank-at-eol

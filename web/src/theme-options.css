@@ -1,0 +1,15 @@
+.appearance-options { display: grid; gap: 2rem; }
+.appearance-intro, .appearance-mode { display: grid; gap: .75rem; justify-items: start; }
+.appearance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; width: 100%; }
+.appearance-card { color-scheme: light; display: grid; align-content: start; gap: .75rem; border: 1px solid #ddded8; background: #fffefa; color: #242521; border-radius: 1rem; padding: 1.25rem; min-width: 0; }
+.appearance-caption { color: #656963; font-size: .72rem; letter-spacing: .05em; }
+.appearance-description { font-size: .8rem; line-height: 1.7; color: #656963; margin: 0; min-height: 3.9em; }
+.appearance-sample { display: grid; gap: 1.25rem; padding-top: 1rem; border-top: 1px solid #e5e5df; }
+.appearance-budget { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; font-size: .86rem; }
+.appearance-budget strong { font-variant-numeric: tabular-nums; font-size: 1.1rem; }
+.appearance-progress { height: 5px; border-radius: 4px; background: #eaeae5; }
+.appearance-progress i { display: block; width: 57%; height: 5px; border-radius: 4px; background: #262723; }
+.appearance-card[data-option="forest"] .appearance-progress i { background: #154d3a; }
+.appearance-card[data-option="navy"] .appearance-progress i { background: #243d59; }
+.appearance-actions { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+@media(max-width: 740px) { .appearance-grid { grid-template-columns: 1fr; } .appearance-description { min-height: 0; } }

@@ -1,0 +1,151 @@
+import * as stylex from "@stylexjs/stylex";
+import type { ComponentProps, ReactNode } from "react";
+import { Text } from "../content/text.tsx";
+import { row, stack } from "../primitives/stack.stylex.ts";
+import { typeRole } from "../primitives/type.stylex.ts";
+import { border, color, space } from "../tokens.stylex.ts";
+import type { StyleProp } from "../types.ts";
+import { SectionHeading } from "./section-heading.tsx";
+
+export type SectionLevel = 2 | 3 | 4 | 5 | 6;
+
+interface SectionProps extends Omit<
+  ComponentProps<"section">,
+  "title" | "children" | "className" | "style"
+> {
+  /**
+   * The block's label. Rendered as a real heading, so keep it to a phrase.
+   *
+   * @zh 区块的标签。以真实的标题元素渲染，因此应保持为一个短语。
+   */
+  title: ReactNode;
+  /**
+   * A muted line under the label that says what the block holds. The label and
+   * this line are lines of one item, so no gap separates them.
+   *
+   * @zh 标签下方说明区块内容的弱化文字。标签与这行文字属于同一项，因此二者之间没有间距。
+   */
+  description?: ReactNode;
+  /**
+   * Section body. Leave it out when the description says all there is.
+   *
+   * @zh 区块正文。若说明文字已经足够，可以省略。
+   */
+  children?: ReactNode;
+  /**
+   * Decorative icon before the label, rendered `aria-hidden`.
+   *
+   * @zh 标签前的装饰性图标，以 `aria-hidden` 渲染。
+   */
+  icon?: ReactNode;
+  /**
+   * Controls parked at the end of the heading row — a "see all" link, a filter.
+   * Unlike `icon` these are real content, so they stay in the accessibility
+   * tree and may be interactive.
+   *
+   * @zh 置于标题行末尾的控件——例如「查看全部」链接、筛选器。与 `icon` 不同，这些是真实内容，因此会保留在无障碍树中并可交互。
+   */
+  actions?: ReactNode;
+  /**
+   * Heading rank for the label. Defaults to `3`; set it to keep the document
+   * outline honest when the section nests deeper or shallower than usual.
+   *
+   * @zh 标签的标题层级；当区块的嵌套层级比通常更深或更浅时，设置它以保持文档大纲的正确性。
+   */
+  level?: SectionLevel;
+  /**
+   * Rules the section off from what precedes it. Use it when sections follow
+   * one another directly and the label alone isn't enough of a break.
+   *
+   * @zh 用分隔线将该区块与前面的内容分开。当多个区块紧密相连、仅凭标签不足以构成断点时使用。
+   */
+  divider?: boolean;
+  /**
+   * StyleX overrides merged over the root — composed last so a caller wins.
+   *
+   * @zh 合并在根元素之上的 StyleX 覆盖样式——最后合成，因此调用方总能获胜。
+   */
+  css?: StyleProp;
+}
+
+/**
+ * A labelled block of content: a quiet heading row — optional icon, the label,
+ * optional trailing controls — above whatever it holds.
+ * The label reads as muted small text on purpose (wayfinding, not hierarchy)
+ * while staying a real heading; reach for `Heading` directly for a prominent
+ * title.
+ */
+export function Section({
+  title,
+  description,
+  children,
+  icon,
+  actions,
+  level = 3,
+  divider,
+  css,
+  ref,
+  ...restProps
+}: SectionProps) {
+  return (
+    <section
+      {...restProps}
+      ref={ref}
+      css={[stack.tight, divider === true && styles.divided, css]}
+    >
+      <div css={[row.tight, description ? styles.described : null]}>
+        {/* Truthiness: `icon={cond && <X/>}` / `actions={cond && <Y/>}` then
+            render no slot. `!= null` would keep an empty box and the gap. */}
+        {icon ? (
+          <span css={[typeRole.label, styles.icon]} aria-hidden>
+            {icon}
+          </span>
+        ) : null}
+        <div css={[stack.text, styles.titles]}>
+          <SectionHeading level={level}>{title}</SectionHeading>
+          {description ? (
+            <Text look="bodySmall" tone="muted">
+              {description}
+            </Text>
+          ) : null}
+        </div>
+        {actions ? (
+          <div css={[row.tight, styles.actions]}>{actions}</div>
+        ) : null}
+      </div>
+      {children ? <div css={stack.item}>{children}</div> : null}
+    </section>
+  );
+}
+
+const styles = stylex.create({
+  divided: {
+    borderBlockStartWidth: border.size_1,
+    borderBlockStartStyle: "solid",
+    borderBlockStartColor: color.border,
+    paddingBlockStart: space._5,
+  },
+  // The icon box takes the type role of the title, so the icon tracks the
+  // label rather than whatever the section's contents happen to set. It is one
+  // line tall, so it centres on the first line of the label.
+  icon: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    inlineSize: "1em",
+    blockSize: "1lh",
+    color: color.fgMuted,
+  },
+  // The description makes the text two lines, so the icon and the actions
+  // align with the label at the top.
+  described: {
+    alignItems: "flex-start",
+  },
+  titles: {
+    minInlineSize: 0,
+  },
+  actions: {
+    marginInlineStart: "auto",
+  },
+});

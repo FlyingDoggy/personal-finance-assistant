@@ -1,0 +1,109 @@
+import * as stylex from "@stylexjs/stylex";
+import { pointer } from "../breakpoints.stylex.ts";
+import {
+  border,
+  color,
+  controlHeight,
+  controlSize,
+  font,
+  opacity,
+} from "../tokens.stylex.ts";
+
+/**
+ * The pill skin shared by every chip and, at rest, by `Badge` — exposed as
+ * composable StyleX for an element `Chip` can't be, most often a `<Link>`.
+ * Compose a type role first (`typeRole.label` for the `sm` step,
+ * `typeRole.caption` for `xs`), then `base` plus a `chipSize` step, then
+ * `interactive`, then `active` for the selected one.
+ *
+ * `interactive` inlines its focus ring and its touch target instead of
+ * composing `a11y.focusRing` and `a11y.touchTarget`, since a primitive can't
+ * compose another at definition time. Keep the copies the same as the
+ * originals.
+ */
+export const chipSurface = stylex.create({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    gap: controlSize._1,
+    boxSizing: "border-box",
+    whiteSpace: "nowrap",
+    borderWidth: border.size_1,
+    borderStyle: "solid",
+    borderColor: color.border,
+    borderRadius: border.radius_round,
+    cornerShape: "round",
+    backgroundColor: color.bgSurface,
+    color: color.fg,
+    fontWeight: font.weight_5,
+    textDecoration: "none",
+  },
+  interactive: {
+    cursor: { default: "pointer", ":disabled": "not-allowed" },
+    borderColor: {
+      default: color.border,
+      [pointer.canHover]: {
+        default: null,
+        ":hover": color.borderAccent,
+        ":disabled:hover": color.border,
+      },
+    },
+    backgroundColor: {
+      default: color.bgSurface,
+      [pointer.canHover]: {
+        default: null,
+        ":hover": color.bgControlHover,
+        ":disabled:hover": color.bgSurface,
+      },
+    },
+    opacity: { default: null, ":disabled": opacity.disabled },
+    outlineWidth: border.size_2,
+    outlineStyle: "solid",
+    outlineColor: {
+      default: "transparent",
+      ":focus-visible": color.borderAccent,
+    },
+    outlineOffset: border.size_2,
+    WebkitTapHighlightColor: "transparent",
+    touchAction: "manipulation",
+    position: { default: null, [pointer.coarse]: "relative" },
+    isolation: { default: null, [pointer.coarse]: "isolate" },
+    "::after": {
+      content: { default: null, [pointer.coarse]: '""' },
+      position: "absolute",
+      inset: "min(0px, calc(50% - 22px))",
+      zIndex: -1,
+    },
+  },
+  active: {
+    borderColor: color.borderAccent,
+    backgroundColor: {
+      default: color.bgAccent,
+      ":hover": {
+        default: null,
+        [pointer.canHover]: color.bgAccentHover,
+      },
+    },
+    color: color.fgOnAccent,
+  },
+});
+
+/**
+ * Height steps for a chip, split from `chipSurface` so a
+ * hand-composed chip sizes itself the same way the `size` prop does. Heights
+ * use `controlHeight`, so a chip is as tall as any control of the same step.
+ */
+export const chipSize = stylex.create({
+  xs: {
+    minBlockSize: controlHeight.xs,
+    paddingBlock: controlSize._0,
+    paddingInline: controlSize._2,
+  },
+  sm: {
+    minBlockSize: controlHeight.sm,
+    paddingBlock: controlSize._1,
+    paddingInline: controlSize._3,
+  },
+});

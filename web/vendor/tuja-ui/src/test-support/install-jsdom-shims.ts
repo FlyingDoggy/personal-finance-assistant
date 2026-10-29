@@ -1,0 +1,102 @@
+import { isRendered } from "../focus/is-rendered.ts";
+
+/**
+ * The `contenteditable` state of the element itself. It is an enumerated
+ * attribute, so its keywords are ASCII case-insensitive, an empty value is the
+ * true state, and anything else falls back to the inherit state.
+ *
+ * @see https://html.spec.whatwg.org/multipage/interaction.html#attr-contenteditable
+ */
+function contentEditableStateOf(
+  element: Element,
+): "true" | "plaintext-only" | "false" | "inherit" {
+  const value = element.getAttribute("contenteditable");
+  if (value === null) return "inherit";
+  const keyword = value.toLowerCase();
+  if (keyword === "" || keyword === "true") return "true";
+  if (keyword === "plaintext-only") return "plaintext-only";
+  if (keyword === "false") return "false";
+  return "inherit";
+}
+
+/**
+ * Whether the element is an editing host or a descendant of one, which is what
+ * `isContentEditable` reports.
+ *
+ * @see https://html.spec.whatwg.org/multipage/interaction.html#editing-host
+ */
+function isEditingHostOrEditable(element: HTMLElement): boolean {
+  // Design mode makes every element in the document an editing host.
+  if (element.ownerDocument.designMode === "on") return true;
+  // The nearest ancestor that sets a state decides, because the false state
+  // blocks the inheritance an editing host would otherwise pass down.
+  for (
+    let node: HTMLElement | null = element;
+    node !== null;
+    node = node.parentElement
+  ) {
+    const state = contentEditableStateOf(node);
+    if (state !== "inherit") return state !== "false";
+  }
+  return false;
+}
+
+// jsdom defines no `matchMedia` at all, so a component that reads a media
+// query (reduced motion, a breakpoint) throws without this. Always
+// non-matching, since jsdom has no layout to evaluate a real query against.
+function createMediaQueryList(query: string): MediaQueryList {
+  return {
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {
+      // No listeners to notify: the query never changes.
+    },
+    removeListener: () => {
+      // No listeners to notify: the query never changes.
+    },
+    addEventListener: () => {
+      // No listeners to notify: the query never changes.
+    },
+    removeEventListener: () => {
+      // No listeners to notify: the query never changes.
+    },
+    dispatchEvent: () => false,
+  };
+}
+
+/**
+ * Adds the DOM members jsdom leaves out but the components under test read.
+ * Call it once from a Vitest setup file.
+ *
+ * - `Element.prototype.checkVisibility`, answered from the computed styles,
+ *   because jsdom has no layout.
+ * - `HTMLElement.prototype.isContentEditable`, which jsdom does not define at
+ *   all, answered from the HTML spec's editing-host rules.
+ * - `window.matchMedia`, defined only when missing so a test can still stub
+ *   its own, returning a minimal, always non-matching `MediaQueryList`.
+ * - `Element.prototype.getAnimations`, which lists no animation, because
+ *   jsdom runs none. A test defines it on an element to run one there.
+ */
+export function installJsdomShims() {
+  Element.prototype.checkVisibility = function checkVisibility(
+    this: Element,
+    options: CheckVisibilityOptions = {},
+  ) {
+    return isRendered(this, options);
+  };
+
+  Object.defineProperty(HTMLElement.prototype, "isContentEditable", {
+    configurable: true,
+    enumerable: true,
+    get(this: HTMLElement) {
+      return isEditingHostOrEditable(this);
+    },
+  });
+
+  Element.prototype.getAnimations = () => [];
+
+  if (typeof window.matchMedia === "undefined") {
+    window.matchMedia = createMediaQueryList;
+  }
+}
