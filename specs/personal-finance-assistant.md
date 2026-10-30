@@ -2,12 +2,14 @@
 
 版本：0.5 开发基线（持续导入、Codex 协作与分析闭环）  
 日期：2026-10-30，Asia/Shanghai  
-状态：用户已指示按本规格开工。R00 备份、R01 首个原生导入及账务边界修复已集成本机应用；R02 协议和真实 Codex 合成闭环通过，但真实账本 AI 写入未开放。其余模块与当前验收边界见[开发记录](../plans/implementation-status.md)，规格完整范围不等于全部功能已交付  
+状态：用户已指示按本规格开工。R00 备份、R01 首个原生导入及账务边界修复已集成本机应用；R02 协议和真实 Codex 合成闭环通过，但真实账本 AI 写入未开放。第二批增加预算草稿/采用、规则治理、批量分类及同窗分析，详见[技术方案](../plans/technical-design-r03-r05.md)。其余模块与当前验收边界见[开发记录](../plans/implementation-status.md)，规格完整范围不等于全部功能已交付  
 配套文档：[账单处理与分析闭环](ingestion-and-analysis.md) · [缺口复核](../plans/feature-gap-review.md) · [设计裁决](../plans/reviews/v0.5-design-review.md) · [借鉴与改造清单](reference-design-shiqingqi.md) · [科目目录](chart-of-accounts.md) · [实施任务](../plans/implementation-plan.md) · [验收案例](acceptance-cases.md)
 
 本文是实施的主规格，完整保留已确认的范围与财务政策，并具体规定页面、数据、接口、预算执行、MCP 和维护方式。第 2.1 节为用户已确认决定；新增框架、目录、接口和阶段顺序为本版设计默认，不表示用户已批准云端部署、数据上传或自动调度。真实预算金额留在本机配置与预算版本，不硬编码到通用规格、样例或前端。
 
 阅读路径：先读第 1.3、2.6 节及配套闭环规格，理解当前能做什么、上传后如何使用 Codex、分析功能如何交付；财务与预算口径看第 5—13 节；页面及实现看第 14—18 节；迁移和交付看第 19—20 节。每项外部借鉴均在配套清单中列出固定提交、文件、改造方式及对应验收。
+
+补充合同：[R04账本维护](../plans/technical-design-r04-ledger-maintenance.md)已进入第三批交付；[报表与财务图表系统](reporting-and-visualization.md)定义四工作区、16图及探索交互，图表实施状态单独记录，不等于已全部上线。
 
 ## 1. 目标与范围
 

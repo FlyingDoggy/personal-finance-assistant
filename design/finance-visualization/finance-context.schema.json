@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:personal-finance:chart-context:0.1.0",
+  "title": "Finance context extension to EIX ChartSpec",
+  "description": "Design contract for a finance member alongside an EIX ChartSpec. No arbitrary chart option or formula is accepted. Runtime integration is planned in V01.",
+  "type": "object",
+  "required": [
+    "result_id",
+    "scope_hash",
+    "definition_version",
+    "basis",
+    "period",
+    "grain",
+    "currency",
+    "amount_encoding",
+    "refund_policy",
+    "normalization",
+    "quality",
+    "dependencies",
+    "reference_set_id"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "result_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "definition_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "basis": {
+      "enum": [
+        "income_expense",
+        "consumption",
+        "living_budget",
+        "cash",
+        "balance"
+      ]
+    },
+    "period": {
+      "type": "object",
+      "required": [
+        "start_date",
+        "end_date",
+        "timezone",
+        "boundary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "timezone": {
+          "const": "Asia/Shanghai"
+        },
+        "boundary": {
+          "const": "inclusive"
+        }
+      }
+    },
+    "grain": {
+      "enum": [
+        "day",
+        "week",
+        "month",
+        "quarter",
+        "year",
+        "period",
+        "as_of",
+        "transaction"
+      ]
+    },
+    "currency": {
+      "const": "CNY"
+    },
+    "amount_encoding": {
+      "const": "integer_minor_string"
+    },
+    "refund_policy": {
+      "enum": [
+        "occurrence",
+        "purchase_attribution",
+        "separate_positive_offsets",
+        "not_applicable"
+      ]
+    },
+    "normalization": {
+      "type": "object",
+      "required": [
+        "mode",
+        "income_source",
+        "month_count",
+        "category_allocation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "none",
+            "reimbursement_receipts",
+            "reimbursement_smoothed"
+          ]
+        },
+        "income_source": {
+          "enum": [
+            "observed_including_reimbursement",
+            "net_salary_plan",
+            "undeclared",
+            "not_applicable"
+          ]
+        },
+        "month_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "category_allocation": {
+          "const": false
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "required": [
+        "status",
+        "reasons"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "required": [
+        "data_revision",
+        "evidence_digest",
+        "coverage_version",
+        "dimension_version",
+        "adopted_budgets",
+        "observation_revision",
+        "classification_rule_revision",
+        "journal_rule_version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "data_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evidence_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "coverage_version": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dimension_version": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "adopted_budgets": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        },
+        "observation_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "classification_rule_revision": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "journal_rule_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "reference_set_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "denominator": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "kind",
+        "amount_minor",
+        "scope_hash",
+        "rounding"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "positive_net_expense",
+            "gross_expense",
+            "explicit_planned_amount"
+          ]
+        },
+        "amount_minor": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "scope_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "rounding": {
+          "const": "largest_remainder_one_decimal"
+        }
+      }
+    },
+    "sankey": {
+      "type": "object",
+      "required": [
+        "kind",
+        "conservation_unit",
+        "residual_roles"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "income_allocation",
+            "confirmed_cash_movement"
+          ]
+        },
+        "conservation_unit": {
+          "const": "integer_minor"
+        },
+        "residual_roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "statistical_shortfall",
+              "statistical_surplus"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

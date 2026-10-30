@@ -224,6 +224,8 @@ def test_native_credit_transactions_and_budgets_work_alongside_null_date_history
                'target_minor': '100000', 'lines': [], 'usage': []}
     response = client.post('/api/v1/budgets', json={'request_id': str(uuid4()), 'expected_version': 0, 'payload': payload})
     assert response.status_code == 200, response.text
+    adopted = client.post(f"/api/v1/budget-versions/{payload['year']}/{response.json()['version']}/adopt", json={"request_id":str(uuid4()), "expected_adopted_version":0})
+    assert adopted.status_code == 200, adopted.text
     budget = read(client, '/budgets?year=2026')
     assert budget['actuals_connected'] is False
     assert budget['unallocated_usage_minor'] == '3000'

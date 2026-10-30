@@ -15,19 +15,25 @@ export function AnalyticsSummary({
   rangeText,
   totalText,
   detail,
+  onTotalClick,
 }: {
   heading: string;
   scope?: string;
   rangeText?: string;
   totalText: string;
   detail?: string;
+  onTotalClick?: () => void;
 }) {
   return (
     <section css={stack.tight} aria-label={heading}>
       <Text look="caption" tone="muted">
         {[heading, scope, rangeText].filter(Boolean).join(" · ")}
       </Text>
-      <span css={[typeRole.h1, styles.total]}>{totalText}</span>
+      {onTotalClick ? (
+        <button type="button" css={[typeRole.h1, styles.total, styles.action]} onClick={onTotalClick} aria-label={`查看${heading}明细`}>
+          {totalText}
+        </button>
+      ) : <span css={[typeRole.h1, styles.total]}>{totalText}</span>}
       {detail && (
         <p
           css={[
@@ -46,6 +52,18 @@ export function AnalyticsSummary({
 const styles = stylex.create({
   total: {
     fontWeight: font.weight_7,
+  },
+  action: {
+    appearance: "none",
+    borderWidth: 0,
+    borderStyle: "solid",
+    backgroundColor: "transparent",
+    padding: 0,
+    color: color.fg,
+    textAlign: "start",
+    cursor: "pointer",
+    textDecorationLine: { default: "none", ":hover": "underline" },
+    textUnderlineOffset: "0.2em",
   },
   line: {
     margin: 0,

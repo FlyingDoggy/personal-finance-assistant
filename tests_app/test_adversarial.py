@@ -63,7 +63,9 @@ def save_budget(client, basis="consumption", target="0"):
     }
     response = client.post("/api/v1/budgets", json={"request_id": str(uuid4()), "expected_version": 0, "payload": payload})
     assert response.status_code == 200, response.text
-    return response.json()
+    adopted = client.post(f"/api/v1/budget-versions/{payload['year']}/{response.json()['version']}/adopt", json={"request_id":str(uuid4()), "expected_adopted_version":0})
+    assert adopted.status_code == 200, adopted.text
+    return client.get("/api/v1/budgets?year=2027").json()
 
 
 def test_internal_transfer_local_ids_preserve_evidence_without_inventing_relation(client):

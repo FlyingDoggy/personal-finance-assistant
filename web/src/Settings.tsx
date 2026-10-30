@@ -43,6 +43,7 @@ export function SettingsPage({ accounts, status, onAccounts, onImport, onBudget,
   } else if (section === "data") {
     content = <SettingsPanel title="数据" description="保留可核对的数据副本，查看当前资料范围。">
       <Card><div css={stack.item}><Text look="label">导出账本数据</Text><Text look="bodySmall" tone="muted">下载当前交易、修改历史、预算和基础资料的 JSON 副本。导出不含银行原件附件，也不能替代完整备份。</Text><div><AnchorButton href="/api/v1/data/export" download>导出账本 JSON</AnchorButton></div></div></Card>
+      <List><ListRow onClick={() => { location.hash = "rules"; }} detail="先预览影响，再启用或应用">分类规则</ListRow><ListRow onClick={() => { location.hash = "analysis"; }} detail="同窗报销标准化、结构和预实">消费与报销分析</ListRow></List>
       <MaintenancePanel/>
       <CoveragePanel accounts={accounts} onSaved={onChanged}/>
       <List><ListRow onClick={onVouchers} detail="查看派生分录、来源证据和修改版本">凭证明细</ListRow><ListRow onClick={onImport} detail="招商信用卡文本 PDF、标准 CSV、支付宝商品明细">导入流水</ListRow><ListRow onClick={() => { location.hash = "imports"; }} detail="查看预览、疑点与续传结果">导入批次</ListRow><ListRow onClick={() => { location.hash = "ai"; }} detail="准备任务后，由 Codex 领取处理">AI 待办</ListRow></List>

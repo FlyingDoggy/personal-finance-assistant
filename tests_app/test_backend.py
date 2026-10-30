@@ -53,7 +53,13 @@ def budget_payload():
 
 
 def save_budget(c,p,expected=0):
-    return c.post('/api/v1/budgets',json={'request_id':str(uuid4()),'expected_version':expected,'payload':p})
+    current = c.get('/api/v1/budgets', params={'year':p['year']}).json()
+    response = c.post('/api/v1/budgets',json={'request_id':str(uuid4()),'expected_version':expected,'payload':p})
+    if response.status_code == 200:
+        adoption = c.post(f"/api/v1/budget-versions/{p['year']}/{response.json()['version']}/adopt", json={'request_id':str(uuid4()),'expected_adopted_version':current['version']})
+        assert adoption.status_code == 200, adoption.text
+        return c.get('/api/v1/budgets', params={'year':p['year']})
+    return response
 
 
 def test_unknown_cash_preserves_evidence_and_separates_book_from_observation(tmp_path):

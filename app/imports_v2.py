@@ -343,6 +343,8 @@ def _apply_one(store,batch_id):
                 # every source preserves only its proven endpoint movement.
                 tid=uid()
                 save_transaction(db,tid,p,'import',f"{meta['parser_version']} 原始记录；批次 {batch_id}",actor='importer')
+                from .classification_rules import apply_imported
+                apply_imported(db,tid)
                 result={'status':'mapped','transaction_id':tid,'message':'已新增业务；未分类消费已计入费用。' if p['kind']=='expense' and p.get('category_code')=='5016' else '已新增业务。'}
                 created=True
                 advance(db)

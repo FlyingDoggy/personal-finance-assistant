@@ -36,8 +36,9 @@ def expense_value(p):
 
 def edit_options(p, txs):
     h = p['historical']
-    related = sorted({t['id'] for t in txs.values() if t['id'] != p['id'] and is_historical(t) and
-                      (t['id'] == h.get('related_id') or t['historical'].get('related_id') == p['id'])})
+    related = sorted({t['id'] for t in txs.values() if t['id'] != p['id'] and
+                      (t['id'] == h.get('related_id') or t.get('historical', {}).get('related_id') == p['id']
+                       or refund_parent(t) == p['id'] or refund_parent(p) == t['id'])})
     category_type = 'expense' if expense_value(p) or h['event'] in EXPENSE_EVENTS | REFUND_EVENTS else ('income' if h['event'] in INCOME_EVENTS else 'none')
     settlement = h['event'] in {'分期本金出账', '转分期', '分期退款结算调整', '关闭订单', '取消订单退款'}
     allowed_events = [h['event']] if related or settlement else sorted(EXPENSE_EVENTS | REFUND_EVENTS | set(INCOME_EVENTS) | {'性质待确认', h['event']})
@@ -230,7 +231,7 @@ def validate_graph(planned, txs, tid=None, changes=None):
         parent_id = refund_parent(child)
         if not parent_id or (child_id not in touched and parent_id not in touched): continue
         parent = combined.get(parent_id)
-        if not parent or is_historical(parent) != is_historical(child) or expense_value(parent) <= 0 or expense_value(child) >= 0 or parent['account_id'] != child['account_id']:
+        if not parent or expense_value(parent) <= 0 or expense_value(child) >= 0 or parent['account_id'] != child['account_id'] or parent.get('currency') != child.get('currency'):
             raise DomainError('退款必须关联同账户的正额原消费。', 'linked_amount_conflict', 409)
         if not child.get('date') or not parent.get('date') or child['date'] < parent['date']:
             raise DomainError('退款日期不能早于原消费。', 'linked_amount_conflict', 409)

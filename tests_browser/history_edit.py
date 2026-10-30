@@ -29,6 +29,8 @@ def seed(directory):
                           for line, name in [('dining', '合成餐饮'), ('traffic', '合成交通')]], 'usage': []}
         response = client.post('/api/v1/budgets', json={'request_id': str(uuid4()), 'expected_version': 0, 'payload': plan})
         assert response.status_code == 200, response.text
+        adopted=client.post("/api/v1/budget-versions/2027/1/adopt",json={"request_id":str(uuid4()),"expected_adopted_version":0})
+        assert adopted.status_code==200,adopted.text
     store = app.state.store
     evidence = b'SYNTHETIC ORIGINAL 300.00'
     sha = store.archive(evidence, 'synthetic-evidence.csv')

@@ -36,12 +36,15 @@ export function MorePage({
         </div>
       </div>
       <div className="more-actions">
+        <button onClick={()=>{location.hash="reconciliation";}}><span className="action-icon"><Icon name="wallet" size={24}/></span><span><b>余额核对</b><small>银行余额、日初起点、差异与遗漏补录</small></span><Icon name="arrow"/></button>
         <button onClick={onSettings}>
           <span className="action-icon"><Icon name="more" size={24} /></span>
           <span><b>设置</b><small>账户、基础资料、本设备偏好与数据</small></span>
           <Icon name="arrow" />
         </button>
         <button onClick={() => { location.hash = "imports"; }}><span className="action-icon"><Icon name="upload" size={24}/></span><span><b>导入批次</b><small>预览、处理结果与继续导入</small></span><Icon name="arrow"/></button>
+        <button onClick={() => { location.hash = "analysis"; }}><span className="action-icon"><Icon name="reports" size={24}/></span><span><b>消费与报销分析</b><small>同窗月均、费用结构、大额与预实</small></span><Icon name="arrow"/></button>
+        <button onClick={() => { location.hash = "rules"; }}><span className="action-icon"><Icon name="budget" size={24}/></span><span><b>分类规则</b><small>草稿、影响预览、启用与停用</small></span><Icon name="arrow"/></button>
         <button onClick={() => { location.hash = "ai"; }}><span className="action-icon"><Icon name="clock" size={24}/></span><span><b>AI 待办</b><small>Codex 分类任务与待核疑点</small></span><Icon name="arrow"/></button>
         <button onClick={onVouchers}>
           <span className="action-icon"><Icon name="transactions" size={24} /></span>
