@@ -36,6 +36,7 @@ export function MorePage({
         </div>
       </div>
       <div className="more-actions">
+        <button onClick={()=>{location.hash="reconciliation";}}><span className="action-icon"><Icon name="wallet" size={24}/></span><span><b>余额核对</b><small>银行余额、日初起点、差异与遗漏补录</small></span><Icon name="arrow"/></button>
         <button onClick={onSettings}>
           <span className="action-icon"><Icon name="more" size={24} /></span>
           <span><b>设置</b><small>账户、基础资料、本设备偏好与数据</small></span>

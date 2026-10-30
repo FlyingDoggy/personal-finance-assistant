@@ -22,21 +22,33 @@ def coverage(db, txs=None):
 def common(db, txs=None): return {'data_revision':revision(db),'coverage':coverage(db,txs)}
 
 
+def account_effective_day(account, transaction):
+    """Credit expenses affect debt on recognition day; cash uses receipt/payment."""
+    t=transaction
+    return t.get('date') if account['kind']=='credit' and (t.get('kind') in {'expense','refund'} or (historical.is_historical(t) and historical.expense_value(t))) else t.get('cash_date')
+
+
+def account_balance(a, txs, cutoff=None):
+    aid=a['id']
+    relevant=[(t,delta) for t in txs.values() if account_effective_day(a,t) and (not cutoff or account_effective_day(a,t)<=cutoff) for mid,delta in movements(t).items() if mid==aid]
+    change=sum(delta for _,delta in relevant)
+    unexplained=sum(delta for t,delta in relevant if not explainable(t))
+    opening_known=a['opening_balance'] is not None and (not cutoff or a['opening_date']<=cutoff)
+    window=[(t,delta) for t,delta in relevant if opening_known and account_effective_day(a,t)>=a['opening_date']]
+    # An evidenced new opening supersedes earlier changes, including unexplained
+    # ones; undated movements still cannot be assigned to either side of it.
+    has_unexplained=any(delta and not explainable(t) for t,delta in window)
+    undated=any(movements(t).get(aid) and not account_effective_day(a,t) for t in txs.values())
+    after_opening=sum(delta for _,delta in window)
+    balance=(a['opening_balance']+(after_opening if a['kind']=='cash' else -after_opening)) if opening_known else None
+    direction=1 if a['kind']=='cash' else -1
+    known=balance is not None and not has_unexplained and not undated
+    return {'id':aid,'name':a['name'],'kind':a['kind'],'currency':a['currency'],'opening_balance_minor':money(a['opening_balance']) if a['opening_balance'] is not None else None,'opening_date':a['opening_date'],'balance_minor':money(balance) if known else None,'observed_balance_minor':money(balance) if balance is not None else None,'known_change_minor':money(direction*change),'book_change_minor':money(direction*(change-unexplained)),'unexplained_change_minor':money(direction*unexplained),'overpayment_minor':money(max(-balance,0)) if a['kind']=='credit' and known else None,'version':a['version']}
+
+
 def account_dtos(db, cutoff=None):
-    acc=accounts(db); txs=transactions(db); result=[]
-    for aid,a in acc.items():
-        def effective_day(t):
-            return t.get('date') if a['kind']=='credit' and (t.get('kind') in {'expense','refund'} or (historical.is_historical(t) and historical.expense_value(t))) else t.get('cash_date')
-        relevant=[(t,delta) for t in txs.values() if effective_day(t) and (not cutoff or effective_day(t)<=cutoff) for mid,delta in movements(t).items() if mid==aid]
-        change=sum(delta for _,delta in relevant)
-        unexplained=sum(delta for t,delta in relevant if not explainable(t))
-        has_unexplained=any(not explainable(t) for t,_ in relevant)
-        opening_known=a['opening_balance'] is not None and (not cutoff or a['opening_date']<=cutoff)
-        after_opening=sum(delta for t,delta in relevant if opening_known and effective_day(t)>=a['opening_date'])
-        balance=(a['opening_balance']+(after_opening if a['kind']=='cash' else -after_opening)) if opening_known else None
-        direction=1 if a['kind']=='cash' else -1
-        result.append({'id':aid,'name':a['name'],'kind':a['kind'],'currency':a['currency'],'opening_balance_minor':money(a['opening_balance']) if a['opening_balance'] is not None else None,'opening_date':a['opening_date'],'balance_minor':money(balance) if balance is not None and not has_unexplained else None,'observed_balance_minor':money(balance) if balance is not None else None,'known_change_minor':money(direction*change),'book_change_minor':money(direction*(change-unexplained)),'unexplained_change_minor':money(direction*unexplained),'overpayment_minor':money(max(-balance,0)) if a['kind']=='credit' and balance is not None and not has_unexplained else None,'version':a['version']})
-    return result
+    txs=transactions(db)
+    return [account_balance(a,txs,cutoff) for a in accounts(db).values()]
 
 
 def transaction_dto(db,p,acc=None,txs=None):
@@ -70,13 +82,16 @@ def report(db,month):
     selected=[p for p in txs.values() if recognition_date(p) and start<=recognition_date(p)<=end and historical.scoped(p)]
     income={c:0 for c in ('4001','4002','4004','4005')}
     expense={c:0 for c in NAMES if c.startswith('5')}
+    income_ids={c:[] for c in income}; expense_ids={c:[] for c in expense}
     reimbursement=family_support=0
     for p in selected:
         if historical.is_historical(p):
             h=p['historical']; code=p.get('category_code')
             inc_value=int(h.get('income_minor') or '0'); exp_value=int(h.get('expense_minor') or '0')
-            if inc_value: income[code]+=inc_value
-            if exp_value: expense[code]+=exp_value
+            if inc_value:
+                income[code]+=inc_value; income_ids[code].append(p['id'])
+            if exp_value:
+                expense[code]+=exp_value; expense_ids[code].append(p['id'])
             if h['event']=='报销回款': reimbursement+=inc_value
             if h['event']=='家庭赞助': family_support+=inc_value
             continue
@@ -84,11 +99,13 @@ def report(db,month):
         value=int(p['amount_minor'])
         if p['kind'] in {'income','reimbursement','family_support'}:
             income[p['category_code']]+=value
+            income_ids[p['category_code']].append(p['id'])
             if p['kind']=='reimbursement': reimbursement+=value
             if p['kind']=='family_support': family_support+=value
         elif p['kind'] in {'expense','refund'}:
             category=txs[p['refund_of']]['category_code'] if p['kind']=='refund' else p['category_code']
             expense[category]+=-value
+            expense_ids[category].append(p['id'])
     cash_lines={}; inflow=outflow=unexplained_inflow=unexplained_outflow=0
     for p in txs.values():
         if not p.get('cash_date') or not start<=p['cash_date']<=end or not historical.scoped(p): continue
@@ -121,7 +138,7 @@ def report(db,month):
     closing=sum(int(a['observed_balance_minor']) for a in balance_accounts if a['kind']=='cash') if cash_known else None
     inc=sum(income.values()); exp=sum(expense.values())
     review=[p for p in selected if review_reasons(p)]
-    return {'month':month,'basis':'current_known_transactions','month_quality':{basis:period_coverage.month_quality(db,month,basis,txs=txs) for basis in ('consumption','payment')},'reimbursement_date_adjustments':[{'transaction_id':t['id'],'source_date':t.get('date'),'recognized_date':recognition_date(t)} for t in txs.values() if historical.scoped(t) and recognition_date(t)!=t.get('date') and any(day and day.startswith(month) for day in (t.get('date'),recognition_date(t)))],'income_expense':{'income_minor':money(inc),'expense_minor':money(exp),'surplus_minor':money(inc-exp),'income_lines':[{'code':c,'name':NAMES[c],'amount_minor':money(v)} for c,v in income.items()],'expense_lines':[{'code':c,'name':NAMES[c],'amount_minor':money(v)} for c,v in expense.items()],'reimbursement_minor':money(reimbursement),'family_support_minor':money(family_support),'unclassified_expense_minor':money(expense['5016']),'unrealized_minor':None},'cash_flow':{'inflow_minor':money(inflow),'outflow_minor':money(outflow),'net_minor':money(inflow-outflow),'unexplained_inflow_minor':money(unexplained_inflow),'unexplained_outflow_minor':money(unexplained_outflow),'lines':[{**{k:v for k,v in r.items() if k!='amount'},'amount_minor':money(r['amount'])} for r in cash_lines.values()],'opening_minor':money(closing-(inflow-outflow)) if closing is not None else None,'closing_minor':money(closing) if closing is not None else None,'future_arrangements':None},'balance_sheet':{'name':'账户资产与负债表','as_of':end,'assets_minor':money(known_assets) if all_known else None,'liabilities_minor':money(known_liabilities) if all_known else None,'scope_net_minor':money(known_assets-known_liabilities) if all_known else None,'known_assets_minor':money(known_assets),'known_liabilities_minor':money(known_liabilities),'accounts':balance_accounts,'observations':historical.observations(db)},'review':{'count':len(review),'unclassified_count':sum(p.get('category_code')=='5016' for p in selected),'unknown_amount_minor':money(sum(abs(int(p['amount_minor'])) for p in selected if not explainable(p)))},'transaction_count':len(selected),**common(db,txs)}
+    return {'month':month,'basis':'current_known_transactions','month_quality':{basis:period_coverage.month_quality(db,month,basis,txs=txs) for basis in ('consumption','payment')},'reimbursement_date_adjustments':[{'transaction_id':t['id'],'source_date':t.get('date'),'recognized_date':recognition_date(t)} for t in txs.values() if historical.scoped(t) and recognition_date(t)!=t.get('date') and any(day and day.startswith(month) for day in (t.get('date'),recognition_date(t)))],'income_expense':{'income_minor':money(inc),'expense_minor':money(exp),'surplus_minor':money(inc-exp),'income_transaction_ids':sorted({tid for ids in income_ids.values() for tid in ids}),'expense_transaction_ids':sorted({tid for ids in expense_ids.values() for tid in ids}),'income_lines':[{'code':c,'name':NAMES[c],'amount_minor':money(v),'transaction_ids':income_ids[c]} for c,v in income.items()],'expense_lines':[{'code':c,'name':NAMES[c],'amount_minor':money(v),'transaction_ids':expense_ids[c]} for c,v in expense.items()],'reimbursement_minor':money(reimbursement),'family_support_minor':money(family_support),'unclassified_expense_minor':money(expense['5016']),'unrealized_minor':None},'cash_flow':{'inflow_minor':money(inflow),'outflow_minor':money(outflow),'net_minor':money(inflow-outflow),'transaction_ids':sorted({tid for line in cash_lines.values() for tid in line['transaction_ids']}),'unexplained_inflow_minor':money(unexplained_inflow),'unexplained_outflow_minor':money(unexplained_outflow),'lines':[{**{k:v for k,v in r.items() if k!='amount'},'amount_minor':money(r['amount'])} for r in cash_lines.values()],'opening_minor':money(closing-(inflow-outflow)) if closing is not None else None,'closing_minor':money(closing) if closing is not None else None,'future_arrangements':None},'balance_sheet':{'name':'账户资产与负债表','as_of':end,'assets_minor':money(known_assets) if all_known else None,'liabilities_minor':money(known_liabilities) if all_known else None,'scope_net_minor':money(known_assets-known_liabilities) if all_known else None,'known_assets_minor':money(known_assets),'known_liabilities_minor':money(known_liabilities),'accounts':balance_accounts,'observations':historical.observations(db)},'review':{'count':len(review),'unclassified_count':sum(p.get('category_code')=='5016' for p in selected),'unknown_amount_minor':money(sum(abs(int(p['amount_minor'])) for p in selected if not explainable(p)))},'transaction_count':len(selected),**common(db,txs)}
 
 
 def budget_projection(db,payload):

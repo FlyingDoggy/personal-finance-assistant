@@ -5,7 +5,7 @@ import json
 
 from . import vouchers
 
-CALCULATOR_VERSION = "management-reports-v0.5.1"
+CALCULATOR_VERSION = "management-reports-v0.5.2"
 from .domain import DomainError, month_bounds
 from .reports import report
 from .storage import encode, now, revision, transactions, uid

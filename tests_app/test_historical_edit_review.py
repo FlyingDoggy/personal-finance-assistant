@@ -460,7 +460,7 @@ def test_clearing_confirmed_cash_date_cannot_silently_remove_money_from_cash_rep
     assert report(client)['cash_flow']['outflow_minor'] == '10000'
 
 
-def test_historical_to_native_refund_link_is_not_accepted_without_shared_validation(book):
+def test_historical_to_native_refund_uses_shared_validation_and_capacity(book):
     client, store = book
     card = account(client, 'credit')
     native = {'date': '2027-01-02', 'cash_date': '2027-01-02', 'description': '合成新消费',
@@ -473,8 +473,12 @@ def test_historical_to_native_refund_link_is_not_accepted_without_shared_validat
     seed(store, card, 'refund', event='消费退款或返利', value='-5000', expense='-5000', cash='0', debt='-5000',
          family='citic_credit', cash_included=False)
     response = edit(client, 'refund', {'refund_of': 'native-purchase'})
-    assert response.status_code in (409, 422), response.text
-    assert get(client, '/transactions/refund')['transaction'].get('refund_of') is None
+    assert response.status_code == 200, response.text
+    assert get(client, '/transactions/refund')['transaction']['refund_of'] == 'native-purchase'
+    assert report(client)['income_expense']['expense_minor'] == '5000'
+    failed = edit(client, 'refund', {'business_amount_minor': '10001'})
+    assert failed.status_code == 409, failed.text
+    assert get(client, '/transactions/refund')['transaction']['business_amount_minor'] == '5000'
 
 
 def test_cross_year_cash_payment_uses_payment_year_in_both_budget_and_detail(book):

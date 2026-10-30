@@ -1,0 +1,387 @@
+{
+  "name": "personal-finance-visualization",
+  "version": "0.1.0",
+  "status": "design_contract_not_shipped_charts",
+  "spec": "../../specs/reporting-and-visualization.md",
+  "source": {
+    "url": "http://8.160.176.104/eix/design-system/collaborative-visualization/samples/index.html",
+    "version": "eix-candidate-extension-0.1.0",
+    "files": [
+      {
+        "path": "README.md",
+        "sha256": "9f4ebb87ffea24f24432fb8c96315204a0477f4d151ad9826f7679f3dfb8f528"
+      },
+      {
+        "path": "eix-visualization.design.json",
+        "sha256": "e2c3f642f9f15d70b41700c61fd633d5cc3e359ea96572319ef09174335c6b7a"
+      },
+      {
+        "path": "eix-visualization.tokens.json",
+        "sha256": "69ee4f24b7cd852658751244559b82d374bb7621b829620c6c29f4556c5c6931"
+      },
+      {
+        "path": "schema/chart-spec.schema.json",
+        "sha256": "2b782975b3ce8f9b76b277f230b6f09d8e8ff196a73075b00a9cfddc1798eacd"
+      },
+      {
+        "path": "src/chart-validator.js",
+        "sha256": "26eda6af8f06bb7598dc6f59a8d59f200f043b2f19614980f88113f68e1b7f6d"
+      },
+      {
+        "path": "src/echarts-adapter.js",
+        "sha256": "8411def7be105ab18cc7859fea455e4093edfc58fa7a64db464c8cb547aeb172"
+      },
+      {
+        "path": "samples/react/ChartBlock.tsx",
+        "sha256": "15e318b44b79d746bb15e0dab207ce536f5f60046c8bfd6e24aaf35487975f6a"
+      }
+    ]
+  },
+  "interaction": {
+    "mark_click": "select_only",
+    "global_filter": "explicit_action",
+    "zoom_dimensions": [
+      "period",
+      "time_grain",
+      "dimension_path"
+    ],
+    "back_restores_context": true,
+    "mobile_hover_required": false
+  },
+  "presentation": {
+    "app_accent": "existing_finance_ink",
+    "chart_colors": "stable_identity_independent_of_ui_accent",
+    "ordinary_visible_series_max": 5,
+    "dense_visible_series_max": 8,
+    "silent_remainder": false,
+    "table_equivalent_required": true
+  },
+  "adaptation_gaps": [
+    "percentage_adapter_requires_normalization_and_negative_gates",
+    "finance_sankey_requires_integer_and_business_conservation",
+    "reference_renderer_font_must_be_replaced",
+    "reference_limit_7_nodes_needs_reviewed_responsive_extension"
+  ],
+  "charts": [
+    {
+      "id": "FV01",
+      "key": "period-kpis",
+      "representation": "kpi-row",
+      "basis": "income_expense",
+      "grain": "period",
+      "gates": [
+        "known_values_visible",
+        "cash_separate"
+      ],
+      "drill": [
+        "transactions"
+      ],
+      "phase": "V01",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV02",
+      "key": "income-expense-trend",
+      "representation": "multi-line",
+      "basis": "income_expense",
+      "grain": "time_bucket",
+      "gates": [
+        "no_missing_to_zero",
+        "comparable_definition"
+      ],
+      "drill": [
+        "time_focus",
+        "transactions"
+      ],
+      "phase": "V01",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV03",
+      "key": "expense-ranking",
+      "representation": "horizontal-bar-emphasis",
+      "basis": "consumption",
+      "grain": "category_merchant",
+      "gates": [
+        "signed_net_expense",
+        "explicit_remainder"
+      ],
+      "drill": [
+        "category",
+        "merchant",
+        "transactions"
+      ],
+      "phase": "V01",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV04",
+      "key": "expense-composition",
+      "representation": "100-percent-stacked-bar",
+      "basis": "consumption",
+      "grain": "month_category",
+      "gates": [
+        "positive_denominator",
+        "nonnegative_parts",
+        "parts_reconcile",
+        "fixed_window_top_set",
+        "unclassified_visible"
+      ],
+      "drill": [
+        "time_focus",
+        "category",
+        "transactions"
+      ],
+      "phase": "V01",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV05",
+      "key": "income-allocation",
+      "representation": "sankey",
+      "basis": "income_expense",
+      "grain": "period_flow",
+      "gates": [
+        "integer_conservation",
+        "nonnegative_links",
+        "refund_offsets_separate",
+        "no_implied_funding",
+        "deficit_is_statistical"
+      ],
+      "drill": [
+        "transactions"
+      ],
+      "phase": "V01",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV06",
+      "key": "budget-variance",
+      "representation": "bullet",
+      "basis": "living_budget",
+      "grain": "budget_line",
+      "gates": [
+        "adopted_only",
+        "execution_basis_matches",
+        "partial_remainder_unknown"
+      ],
+      "drill": [
+        "budget_line",
+        "transactions"
+      ],
+      "phase": "V01",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV07",
+      "key": "surplus-change-bridge",
+      "representation": "waterfall",
+      "basis": "income_expense",
+      "grain": "contribution",
+      "gates": [
+        "comparable_periods",
+        "exclusive_exhaustive_contributions",
+        "bridge_reconciles"
+      ],
+      "drill": [
+        "transactions"
+      ],
+      "phase": "V02",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV08",
+      "key": "reimbursement-bridge",
+      "representation": "waterfall",
+      "basis": "income_expense",
+      "grain": "period",
+      "gates": [
+        "same_window_I_E_R_m",
+        "no_category_allocation",
+        "no_second_net_salary_deduction"
+      ],
+      "drill": [
+        "transactions"
+      ],
+      "phase": "V02",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV09",
+      "key": "expense-calendar",
+      "representation": "heatmap",
+      "basis": "consumption",
+      "grain": "day",
+      "gates": [
+        "day_coverage_declared",
+        "zero_missing_distinct",
+        "negative_diverging_scale"
+      ],
+      "drill": [
+        "time_focus",
+        "transactions"
+      ],
+      "phase": "V02",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV10",
+      "key": "purchase-distribution",
+      "representation": "histogram",
+      "basis": "consumption",
+      "grain": "transaction_bin",
+      "gates": [
+        "gross_purchase_sample",
+        "minimum_20",
+        "declared_bins",
+        "refunds_separate"
+      ],
+      "drill": [
+        "amount_bin",
+        "transactions"
+      ],
+      "phase": "V02",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV11",
+      "key": "budget-month-matrix",
+      "representation": "heatmap",
+      "basis": "living_budget",
+      "grain": "month_budget_line",
+      "gates": [
+        "basis_comparable",
+        "missing_not_zero",
+        "refunds_explicit"
+      ],
+      "drill": [
+        "time_focus",
+        "budget_line",
+        "transactions"
+      ],
+      "phase": "V02",
+      "requires": [],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV12",
+      "key": "cash-movements",
+      "representation": "sankey",
+      "basis": "cash",
+      "grain": "account_flow",
+      "gates": [
+        "confirmed_relations",
+        "once_per_cash_fact",
+        "no_implicit_endpoint",
+        "transfers_not_double_counted"
+      ],
+      "drill": [
+        "account",
+        "transactions"
+      ],
+      "phase": "V03",
+      "requires": [
+        "R04",
+        "R07"
+      ],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV13",
+      "key": "account-balance-trend",
+      "representation": "small-multiples-line",
+      "basis": "balance",
+      "grain": "as_of",
+      "gates": [
+        "known_opening_or_change_only",
+        "observations_distinct",
+        "same_date_scope",
+        "stock_not_summed"
+      ],
+      "drill": [
+        "account",
+        "transactions"
+      ],
+      "phase": "V03",
+      "requires": [
+        "R04"
+      ],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV14",
+      "key": "retention-goal-bridge",
+      "representation": "waterfall",
+      "basis": "living_budget",
+      "grain": "year",
+      "gates": [
+        "plan_actual_forecast_separate",
+        "no_double_contingency",
+        "net_salary_no_reimbursement_deduction"
+      ],
+      "drill": [
+        "budget_line",
+        "transactions"
+      ],
+      "phase": "V03",
+      "requires": [
+        "R07"
+      ],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV15",
+      "key": "future-cash",
+      "representation": "line",
+      "basis": "cash",
+      "grain": "month",
+      "gates": [
+        "known_opening",
+        "verified_payment_plan",
+        "actual_replaces_forecast",
+        "no_invented_probability_interval"
+      ],
+      "drill": [
+        "payment_plan",
+        "transactions"
+      ],
+      "phase": "V03",
+      "requires": [
+        "R07"
+      ],
+      "status": "designed_not_implemented"
+    },
+    {
+      "id": "FV16",
+      "key": "investment-review",
+      "representation": "small-multiples-line",
+      "basis": "balance",
+      "grain": "valuation_date",
+      "gates": [
+        "known_cost",
+        "principal_not_return",
+        "valuation_date_visible",
+        "cashflows_for_return"
+      ],
+      "drill": [
+        "investment",
+        "transactions"
+      ],
+      "phase": "V04",
+      "requires": [
+        "R09"
+      ],
+      "status": "designed_not_implemented"
+    }
+  ]
+}

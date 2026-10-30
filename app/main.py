@@ -21,7 +21,7 @@ from .security import install_security
 from . import historical
 from .transaction_search import filter_transactions, business_kind
 from . import vouchers, report_snapshots
-from . import catalog, budget_plans
+from . import catalog, budget_plans, transaction_edits
 
 PARSER_VERSION='standard_csv_v1'
 CSV_COLUMNS={'source_id','date','description','amount','kind','category_code','counterparty_account_id'}
@@ -46,7 +46,7 @@ def import_dto(row):
 def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
     directory=Path(data_dir or os.environ.get('FINANCE_DATA_DIR') or Path(__file__).resolve().parent.parent/'data'/'app')
     store=Store(directory)
-    app=FastAPI(title='个人财务管理 · 本地第一批',version='0.5.0-dev.2',docs_url=None,redoc_url=None,openapi_url=None)
+    app=FastAPI(title='个人财务管理 · 本地第一批',version='0.5.0-dev.3',docs_url=None,redoc_url=None,openapi_url=None)
     app.state.store=store
     app.state.ai_token = ai_token or os.environ.get("FINANCE_AI_TOKEN")
     install_security(app,token,ai_token=app.state.ai_token)
@@ -77,7 +77,7 @@ def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
         with store.read() as db:
             txs=transactions(db)
             available=sorted({t['date'][:7] for t in txs.values() if t.get('date') and historical.scoped(t)})
-            return {'service':'personal-finance-local','schema_version':db.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()[0],'transaction_count':len(txs),'account_count':db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0],'import_count':db.execute('SELECT COUNT(*) FROM imports').fetchone()[0],'capabilities':{'standard_csv':True,'native_bank_import':True,'native_cmb_credit_pdf':True,'import_preview_resume':True,'full_backup_restore':True,'coverage_declarations':True,'ai_queue':True,'mcp_classification':bool(app.state.ai_token),'investments':False,'ai':False,'remote_access':False,'report_export':False,'historical_migration':True,'budget_actuals':'explicit_consumption_and_payment_links','historical_editing':True,'voucher_browser':True,'dimension_catalog':True,'report_snapshots':True,'logical_json_export':True,'budget_drafts':True,'classification_rules':True,'batch_classification':True,'consumption_analysis':True,'reimbursement_normalization':True,'analysis_snapshots':True},'limitations':['历史账本支持直接修改与保留历史；配对金额同步、退款科目继承。原生格式目前支持招商信用卡文本 PDF；支付宝商品明细仅补证据。投资维护、融资本息重新拆分、报表导出与远程访问尚未交付。','当前报表仅为已知记录汇总；覆盖范围按账户、月份和口径确认。','AI 任务仅限新导入的未分类消费；需由已配置的 Codex MCP 主动领取，不会在上传后自动启动模型。'],'available_months':available,'budget_years':[r[0] for r in db.execute("SELECT year FROM budget_states WHERE status='adopted' ORDER BY year")],'migration':historical.migration_summary(db),**common(db,txs)}
+            return {'service':'personal-finance-local','schema_version':db.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()[0],'transaction_count':len(txs),'account_count':db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0],'import_count':db.execute('SELECT COUNT(*) FROM imports').fetchone()[0],'capabilities':{'standard_csv':True,'native_bank_import':True,'native_cmb_credit_pdf':True,'import_preview_resume':True,'full_backup_restore':True,'coverage_declarations':True,'ai_queue':True,'mcp_classification':bool(app.state.ai_token),'investments':False,'ai':False,'remote_access':False,'report_export':False,'historical_migration':True,'budget_actuals':'explicit_consumption_and_payment_links','historical_editing':True,'voucher_browser':True,'dimension_catalog':True,'report_snapshots':True,'logical_json_export':True,'budget_drafts':True,'classification_rules':True,'batch_classification':True,'consumption_analysis':True,'reimbursement_normalization':True,'analysis_snapshots':True,'manual_transactions':True,'original_download':True,'balance_reconciliation':True,'opening_balance_edit':True,'cross_model_refunds':True},'limitations':['历史账本支持直接修改与保留历史；配对金额同步、退款科目继承。原生格式目前支持招商信用卡文本 PDF；支付宝商品明细仅补证据。投资维护、融资本息重新拆分、报表导出与远程访问尚未交付。','当前报表仅为已知记录汇总；覆盖范围按账户、月份和口径确认。','AI 任务仅限新导入的未分类消费；需由已配置的 Codex MCP 主动领取，不会在上传后自动启动模型。'],'available_months':available,'budget_years':[r[0] for r in db.execute("SELECT year FROM budget_states WHERE status='adopted' ORDER BY year")],'migration':historical.migration_summary(db),**common(db,txs)}
 
     @app.get('/api/v1/chart-accounts')
     def get_chart():
@@ -144,7 +144,7 @@ def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
             p=txs[tid]
             sources=[]
             for row in db.execute('SELECT s.*,i.filename,i.sha256,i.parser_version FROM source_rows s JOIN imports i ON i.id=s.import_id WHERE s.transaction_id=? ORDER BY i.created_at,s.row_number',(tid,)):
-                sources.append({'id':row['id'],'filename':row['filename'],'sha256':row['sha256'],'row_number':row['row_number'],'raw':json.loads(row['raw']),'parser_version':row['parser_version']})
+                sources.append({'id':row['id'],'filename':row['filename'],'sha256':row['sha256'],'row_number':row['row_number'],'raw':json.loads(row['raw']),'parser_version':row['parser_version'],'download_url':'/api/v1/artifacts/'+row['sha256']+'/download' if row['sha256'] else None})
             history=[{'version':r['version'],'action':r['action'],'actor':r['actor'],'reason':r['reason'],'created_at':r['created_at'],'before':json.loads(r['before_payload']) if r['before_payload'] else None,'after':json.loads(r['after_payload'])} for r in db.execute('SELECT * FROM transaction_versions WHERE transaction_id=? ORDER BY version',(tid,))]
             effect=effects(p,acc)
             for year in {int(p[key][:4]) for key in ('date','cash_date') if p.get(key)}:
@@ -175,18 +175,16 @@ def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
                 if any(key in changes and changes[key]!=before_values.get(key) for key in ('business_amount_minor','historical_event','date','cash_date','in_scope','refund_of','account_id')) and not reason.strip():
                     raise DomainError('金额、性质、日期、范围或关联变更需要简短依据，原始凭据会继续保留。')
                 planned=historical.plan_edit(current,changes,txs,accounts(db))
-                marker={'id':body['request_id'],'members':sorted(planned)}
                 for changed_id,p in planned.items():
                     validate_budget_line(db,p,txs.get(changed_id))
                     from .domain import validate_reimbursement_dates
                     validate_reimbursement_dates(p,txs.get(changed_id))
-                    if historical.is_historical(p):
-                        p['historical']['edit_group']=marker
-                    else:
+                    if not historical.is_historical(p):
                         # A historical parent may have a native refund child.
                         # Keep the group in history without adding native fields.
                         p=validate_transaction(p,accounts(db),{**txs,**planned},changed_id)
-                    save_transaction(db,changed_id,p,'edit',reason)
+                        planned[changed_id]=p
+                transaction_edits.save_plan(db,planned,body['request_id'],reason)
                 advance(db)
                 response={'transaction':transaction_dto(db,transactions(db)[tid]),'affected_transaction_ids':sorted(planned),**common(db)}
                 return finish_operation(db,body['request_id'],action,fingerprint,response)
@@ -196,10 +194,12 @@ def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
             if any(k in changes and changes[k]!=current.get(k) for k in ('amount_minor','kind','counterparty_account_id','refund_of','counterparty_confirmed','cash_date')) and not reason.strip():
                 raise DomainError('金额、性质、资金日期或关联变更需要简短依据说明。')
             p=validate_transaction({**raw_payload(current),**changes},accounts(db),txs,tid)
-            validate_budget_line(db,p,current)
-            save_transaction(db,tid,p,'edit',reason)
+            planned=historical.validate_graph({tid:p},txs,tid,changes)
+            for changed_id, item in planned.items():
+                validate_budget_line(db,item,txs.get(changed_id))
+            transaction_edits.save_plan(db,planned,body['request_id'],reason)
             advance(db)
-            response={'transaction':transaction_dto(db,transactions(db)[tid]),**common(db)}
+            response={'transaction':transaction_dto(db,transactions(db)[tid]),'affected_transaction_ids':sorted(planned),**common(db)}
             return finish_operation(db,body['request_id'],action,fingerprint,response)
 
     @app.post('/api/v1/transactions/{tid}/undo')
@@ -214,23 +214,16 @@ def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
             current=txs[tid]; expected(body,current['version'])
             last=db.execute('SELECT * FROM transaction_versions WHERE transaction_id=? AND version=?',(tid,current['version'])).fetchone()
             if last['action']!='edit' or not last['before_payload']: raise DomainError('当前版本没有可直接撤销的人工修改。','nothing_to_undo',409)
-            if historical.is_historical(current):
-                planned=historical.undo_plan(db,current,txs)
-                reason=body.get('reason','撤销上次修改')
-                if not isinstance(reason,str) or len(reason)>2000: raise DomainError('修改理由格式无效。')
-                for changed_id,p in planned.items():
-                    validate_budget_line(db,p,txs.get(changed_id))
-                    save_transaction(db,changed_id,p,'undo',reason)
-                advance(db)
-                response={'transaction':transaction_dto(db,transactions(db)[tid]),'affected_transaction_ids':sorted(planned),**common(db)}
-                return finish_operation(db,body['request_id'],action,fingerprint,response)
-            p=validate_transaction(json.loads(last['before_payload']),accounts(db),txs,tid)
-            validate_budget_line(db,p)
+            planned=transaction_edits.undo_plan(db,current,txs,accounts(db))
             reason=body.get('reason','撤销上次修改')
             if not isinstance(reason,str) or len(reason)>2000: raise DomainError('修改理由格式无效。')
-            save_transaction(db,tid,p,'undo',reason)
+            for changed_id,p in planned.items():
+                validate_budget_line(db,p,txs.get(changed_id))
+                from .domain import validate_reimbursement_dates
+                validate_reimbursement_dates(p,txs.get(changed_id))
+                save_transaction(db,changed_id,p,'undo',reason)
             advance(db)
-            response={'transaction':transaction_dto(db,transactions(db)[tid]),**common(db)}
+            response={'transaction':transaction_dto(db,transactions(db)[tid]),'affected_transaction_ids':sorted(planned),**common(db)}
             return finish_operation(db,body['request_id'],action,fingerprint,response)
 
     @app.get('/api/v1/imports')
@@ -357,7 +350,10 @@ def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
             if not row: raise DomainError('请求记录不存在。','not_found',404)
             return json.loads(row['response'])
 
-    from . import maintenance, coverage as coverage_service, ai_work, imports_v2, classification_rules, analysis
+    from . import maintenance, coverage as coverage_service, ai_work, imports_v2, classification_rules, analysis, reconciliation, manual_transactions, artifacts
+    reconciliation.register_routes(app,store)
+    manual_transactions.register_routes(app,store)
+    artifacts.register_routes(app,store)
     analysis.register_routes(app,store)
     classification_rules.register_routes(app,store)
     budget_plans.register_routes(app,store)

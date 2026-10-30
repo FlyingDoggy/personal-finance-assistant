@@ -14,6 +14,8 @@ import { GearIcon } from "@phosphor-icons/react/dist/ssr/Gear";
 import { FinancePageColumn } from "./upstream/finance-page-column";
 import { FinanceLogo } from "./upstream/finance-logo";
 import { AnalyticsSummary } from "./upstream/analytics-summary";
+import { MonthlyOverview } from "./MonthlyOverview";
+import { ReconciliationWorkspace } from "./ReconciliationWorkspace";
 import { TransactionFace } from "./upstream/transaction-face";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api, errorText, money } from "./api";
@@ -46,7 +48,7 @@ import type {
   Transaction,
 } from "./types";
 import { Empty, Icon, Notice } from "./ui";
-type Page = "home" | "transactions" | "budget" | "reports" | "more" | "vouchers" | "catalog" | "settings" | "imports" | "ai" | "analysis" | "rules";
+type Page = "home" | "transactions" | "budget" | "reports" | "more" | "vouchers" | "catalog" | "settings" | "imports" | "ai" | "analysis" | "rules" | "reconciliation";
 const navigation: { id: Page; label: string; icon: typeof HouseIcon }[] = [
   { id: "home", label: "本月", icon: HouseIcon },
   { id: "transactions", label: "交易", icon: ReceiptIcon },
@@ -71,7 +73,7 @@ function initialMonth() {
 function initialPage(): Page {
   const hash = location.hash.slice(1);
   if (hash === "settings" || hash.startsWith("settings/")) return "settings";
-  return navigation.some((p) => p.id === hash) || ["vouchers", "catalog", "imports", "ai", "analysis", "rules"].includes(hash) ? (hash as Page) : "home";
+  return navigation.some((p) => p.id === hash) || ["vouchers", "catalog", "imports", "ai", "analysis", "rules", "reconciliation"].includes(hash) ? (hash as Page) : "home";
 }
 export default function App() {
   const [page, setPage] = useState<Page>(initialPage),
@@ -307,6 +309,7 @@ export default function App() {
           onImport={() => setModal("import")}
           onTransaction={setSelected}
           onRawData={() => openTransactions({ allPeriods: true })}
+          onTransactions={openTransactions}
           availableBudgetYears={status?.budget_years || []}
         />
       ) : page === "budget" ? (
@@ -330,6 +333,8 @@ export default function App() {
         </>
       ) : page === "analysis" ? (
         <AnalysisWorkspace month={month} onTransaction={setSelected}/>
+      ) : page === "reconciliation" ? (
+        <ReconciliationWorkspace accounts={accounts} chart={chart} month={month} onChanged={load} onTransactions={openTransactions} onAddAccount={()=>setModal("account")}/>
       ) : page === "rules" ? (
         <RulesWorkspace chart={chart} years={status?.budget_years || []} onChanged={load} onTransaction={setSelected}/>
       ) : page === "vouchers" ? (
@@ -378,7 +383,7 @@ export default function App() {
           href: `#${item.id}`,
           label: item.label,
           icon: item.icon,
-          current: page === item.id || (page === "vouchers" && item.id === "transactions") || (page === "analysis" && item.id === "reports") || (["catalog", "settings", "imports", "ai", "rules"].includes(page) && item.id === "more"),
+          current: page === item.id || (page === "vouchers" && item.id === "transactions") || (page === "analysis" && item.id === "reports") || (["catalog", "settings", "imports", "ai", "rules", "reconciliation"].includes(page) && item.id === "more"),
         }))}
         screenKey={page}
       >
@@ -455,6 +460,7 @@ function Home({
   onImport,
   onTransaction,
   onRawData,
+  onTransactions,
   availableBudgetYears,
 }: {
   month: string;
@@ -467,6 +473,7 @@ function Home({
   onImport: () => void;
   onTransaction: (id: string) => void;
   onRawData: () => void;
+  onTransactions: (filters: TransactionFilters) => void;
   availableBudgetYears: number[];
 }) {
   const b = budget?.budget,
@@ -480,10 +487,12 @@ function Home({
           本月
         </Heading>
         <Text look="bodySmall" tone="muted">
-          {Number(month.slice(5))} 月生活安排
+          {Number(month.slice(5))} 月实际收支与生活安排
           {b ? ` · 已采用第 ${budget?.version} 版预算` : ""}
         </Text>
       </header>
+      <MonthlyOverview reports={reports} onTransactions={onTransactions}/>
+      <Heading level={2} look="h4">生活预算</Heading>
       <AnalyticsSummary
         heading="本月日常剩余"
         totalText={
@@ -510,7 +519,7 @@ function Home({
           </Button>
         </div>
       )}
-      <div className="summary-columns">
+      {b && <div className="summary-columns">
         <AnalyticsSummary
           heading="固定及历史分期待付"
           totalText={
@@ -527,7 +536,7 @@ function Home({
           totalText={!b ? "未设置" : !connected ? "实际待关联" : "在预算中查看"}
           detail="年度额度不等于本月已付款。"
         />
-      </div>
+      </div>}
       {b && (
         <>
           <div className="summary-columns">
@@ -610,6 +619,7 @@ function Home({
         )}
       </section>
       <List aria-label="待处理与资料">
+        <ListRow onClick={()=>onNavigate("reconciliation")} detail="录入银行余额、查差异、补录遗漏，不自动补差" trailing={<Icon name="chevron" size={18}/>}>余额核对</ListRow>
         <ListRow
           onClick={() => onNavigate("vouchers")}
           detail="按账户和科目查看借贷分录，追溯来源与修改"

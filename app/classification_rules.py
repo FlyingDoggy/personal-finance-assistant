@@ -197,7 +197,7 @@ def register_routes(app, store):
                     for changed_id, p in group.items():
                         if historical.is_historical(p): p['historical']['edit_group'] = {'id': body['request_id'], 'members': sorted(group)}
                 else:
-                    group = {tid: validate_transaction({**raw_payload(t), **patches}, acc, txs, tid)}
+                    group = historical.validate_graph({tid: validate_transaction({**raw_payload(t), **patches}, acc, txs, tid)}, txs, tid, patches)
                 for changed_id, p in group.items():
                     if not historical.is_historical(p):
                         p = validate_transaction(p, acc, {**txs, **group}, changed_id)
@@ -205,8 +205,8 @@ def register_routes(app, store):
                     if changed_id in planned and planned[changed_id] != p:
                         raise DomainError('关联组存在冲突，整批未应用。', 'relation_conflict', 409)
                     planned[changed_id] = p
-            for tid, p in planned.items():
-                save_transaction(db, tid, p, 'edit', reason, actor='human')
+            from .transaction_edits import save_plan
+            save_plan(db, planned, body['request_id'], reason)
             advance(db)
             return finish_operation(db, body['request_id'], 'batch_classify', fp,
                                     {'updated_count': len(planned), 'transaction_ids': sorted(planned), 'data_revision': revision(db)})

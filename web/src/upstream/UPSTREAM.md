@@ -37,3 +37,5 @@ The local settings pages directly copy these files from `apps/web/src/finance/se
 ## Finance theme
 
 `finance-theme.ts` is copied from `apps/web/src/finance/theme/finance-theme.ts` at the pinned upstream revision without changing its token overrides. It is applied at the document root so portal buttons and selected controls use the original Finance ink accent. The design-system default purple is no longer the app accent. `appearance.ts` adds optional forest/navy overrides and device-local display preferences; these do not alter vendor source or accounting data.
+
+Monthly actual overview adaptation: `analytics-summary.tsx` accepts an optional explicit total action for explicit report composition drill-through; typography and layout remain the upstream presentation, with local responsive amount sizing. The finance visualization plan reuses EIX result contracts separately and does not replace the upstream Finance theme.

@@ -139,14 +139,19 @@ def validate_transaction(payload, accounts, transactions, current_id=None):
             raise DomainError('退款必须增加账户净额。')
         if p['refund_of']:
             original=transactions.get(p['refund_of'])
-            if not original or original['kind']!='expense':
+            if not original or historical.expense_value(original)<=0 or (not historical.is_historical(original) and original['kind']!='expense'):
                 raise DomainError('退款必须关联已存在的原消费。')
             if original['account_id']!=p['account_id']:
                 raise DomainError('跨账户退款分配尚未支持，请保留待核。','unsupported')
-            if p['date']<original['date']:
+            if not original.get('date') or p['date']<original['date']:
                 raise DomainError('退款日期不能早于原消费。')
-            refunded=sum(int(t['amount_minor']) for tid,t in transactions.items() if tid!=current_id and t.get('refund_of')==p['refund_of'] and t['kind']=='refund')
-            if refunded+value>abs(int(original['amount_minor'])):
+            if original.get('currency')!=p['currency']:
+                raise DomainError('退款和原消费币种必须一致。')
+            background_origin=historical.is_historical(original) and not original['historical'].get('scope_override') and original['date'][:4]<p['date'][:4]
+            if not historical.scoped(original) and not background_origin:
+                raise DomainError('原消费排除时不能单独纳入退款。','linked_amount_conflict',409)
+            refunded=sum(-historical.expense_value(t) for tid,t in transactions.items() if tid!=current_id and historical.refund_parent(t)==p['refund_of'])
+            if refunded+value>historical.expense_value(original):
                 raise DomainError('退款合计超过原消费金额，请先处理关联业务。','linked_amount_conflict',409)
             p['category_code']=original['category_code']
         else:
@@ -157,8 +162,8 @@ def validate_transaction(payload, accounts, transactions, current_id=None):
         raise DomainError('只有本人互转和信用还款可设置对端账户。')
     if kind!='refund' and p['refund_of']:
         raise DomainError('只有退款可以关联原消费。')
-    refunds=[] if current_id is None else [t for tid,t in transactions.items() if tid!=current_id and t.get('refund_of')==current_id and t['kind']=='refund']
-    if refunds and (kind!='expense' or sum(int(t['amount_minor']) for t in refunds)>abs(value) or any(t['account_id']!=p['account_id'] or t['date']<p['date'] for t in refunds)):
+    refunds=[] if current_id is None else [t for tid,t in transactions.items() if tid!=current_id and historical.refund_parent(t)==current_id]
+    if refunds and (kind!='expense' or sum(-historical.expense_value(t) for t in refunds)>abs(value) or any(t['account_id']!=p['account_id'] or not t.get('date') or t['date']<p['date'] for t in refunds)):
         raise DomainError('变更与后续退款关联冲突，请先处理关联业务。','linked_amount_conflict',409)
     return p
 

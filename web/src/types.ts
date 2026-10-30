@@ -73,6 +73,7 @@ export type Source = {
   row_number: number;
   raw: Record<string, unknown>;
   parser_version: string;
+  download_url?: string | null;
 };
 export type TransactionDetail = Meta & {
   read_only?: boolean;
@@ -135,6 +136,8 @@ export type Reports = Meta & {
     income_minor: string;
     expense_minor: string;
     surplus_minor: string;
+    income_transaction_ids: string[];
+    expense_transaction_ids: string[];
     income_lines: ReportLine[];
     expense_lines: ReportLine[];
     reimbursement_minor: string;
@@ -146,6 +149,7 @@ export type Reports = Meta & {
     inflow_minor: string;
     outflow_minor: string;
     net_minor: string;
+    transaction_ids: string[];
     unexplained_inflow_minor: string;
     unexplained_outflow_minor: string;
     lines: ReportLine[];

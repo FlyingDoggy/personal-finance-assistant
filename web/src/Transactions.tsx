@@ -1,4 +1,5 @@
 import { BatchClassifier } from "./BatchClassifier";
+import { ManualEntry } from "./ManualEntry";
 import * as stylex from "@stylexjs/stylex";
 import { NavigationSplitView } from "@tuja/ui/components/navigation-split-view";
 import { Button } from "@tuja/ui/components/button";
@@ -248,6 +249,7 @@ export function TransactionsPage({
     [error, setError] = useState(""),
     [selected, setSelected] = useState<string | null>(null),
     [reload, setReload] = useState(0);
+  const [manualOpen,setManualOpen]=useState(false);
   const [batchItems, setBatchItems] = useState<Transaction[]>([]);
   const [batchOpen, setBatchOpen] = useState(false);
   useEffect(() => {
@@ -366,6 +368,8 @@ export function TransactionsPage({
         </div>
         <div className="filter-controls"><Button size="sm" disabled={!batchItems.length} onClick={() => setBatchOpen(true)}>批量分类（{batchItems.length}）</Button>{batchItems.length > 0 && <Button size="sm" look="ghost" onClick={() => setBatchItems([])}>清除选择</Button>}</div>
         {batchOpen && <BatchClassifier items={batchItems} chart={chart} budget={budget} onClose={() => setBatchOpen(false)} onSaved={async () => { setBatchOpen(false); setBatchItems([]); setReload(n => n + 1); await onChanged(); }}/>}
+        <div><Button size="sm" disabled={!accounts.length} onClick={()=>setManualOpen(true)}>手工补录</Button></div>
+        {manualOpen&&<ManualEntry accounts={accounts} chart={chart} month={month} initialAccountId={account||undefined} onClose={()=>setManualOpen(false)} onSaved={async(id)=>{setManualOpen(false);setSelected(id);setReload(n=>n+1);await onChanged();}}/>}
         <search css={stack.tight}>
           <TextField
             type="search"
@@ -1308,6 +1312,7 @@ export function TransactionDrawer({
                   <Heading level={3} look="h4">
                     来源证据 <span>{detail.sources.length} 份</span>
                   </Heading>
+                  {!detail.sources.length&&<p className="muted">{detail.history[0]?.action==="manual_create"?"人工补录：初始业务值和补录依据保存在第1版修改历史中，没有银行原件。":"没有关联的归档原件；当前业务值与修改历史仍可查看。"}</p>}
                   {detail.sources.map((s) => (
                     <details className="source-detail" key={s.id}>
                       <summary>
@@ -1322,6 +1327,7 @@ export function TransactionDrawer({
                         </span>
                         <Icon name="chevron" size={16} />
                       </summary>
+                      {s.download_url&&<p><a href={s.download_url} download={s.filename}>下载原件 · {s.filename}</a></p>}
                       <dl>
                         {coreSourceFields(s.raw).map(
                           ({ key, label, value }) => (
@@ -1353,6 +1359,8 @@ export function TransactionDrawer({
                           <b>
                             {h.action === "migrate" || h.action === "migration"
                               ? "迁入历史记录"
+                              : h.action === "manual_create"
+                                ? "手工补录"
                               : h.action === "import"
                                 ? "导入记录"
                                 : h.action === "undo"

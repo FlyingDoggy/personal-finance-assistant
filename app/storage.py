@@ -14,7 +14,7 @@ from uuid import uuid4
 
 from .domain import DomainError
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 
 def now(): return datetime.now(timezone.utc).isoformat()
@@ -35,7 +35,7 @@ class Store:
             version_value=None
             if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='metadata'").fetchone():
                 version=db.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()
-                if not version or version[0] not in {1,2,3,SCHEMA_VERSION}:
+                if not version or version[0] not in {1,2,3,4,SCHEMA_VERSION}:
                     raise DomainError('数据库结构版本不受当前程序支持；未执行迁移或写入。','unsupported_schema',409)
                 version_value=version[0]
             backup_path=None
@@ -70,7 +70,9 @@ class Store:
             CREATE INDEX IF NOT EXISTS source_transaction ON source_rows(transaction_id);
             '''.split(';'):
                     if statement.strip(): db.execute(statement)
-                from . import catalog, vouchers, report_snapshots, coverage, ai_work, imports_v2, budget_plans, classification_rules, analysis
+                from . import catalog, vouchers, report_snapshots, coverage, ai_work, imports_v2, budget_plans, classification_rules, analysis, reconciliation, transaction_edits
+                reconciliation.initialize(db)
+                transaction_edits.initialize(db)
                 budget_plans.initialize(db)
                 catalog.initialize(db)
                 vouchers.initialize(db)
