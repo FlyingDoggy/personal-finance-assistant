@@ -20,6 +20,8 @@ import { api, errorText, money } from "./api";
 import { BudgetPage, budgetConnected } from "./Budget";
 import { AccountModal, MorePage } from "./More";
 import { ImportModal, ImportWorkspace } from "./ImportWorkspace";
+import { AnalysisWorkspace } from "./AnalysisWorkspace";
+import { RulesWorkspace } from "./RulesWorkspace";
 import { AIWorkspace } from "./AIWorkspace";
 import { CatalogPage, ReportsWorkspace, VouchersPage } from "./LedgerWorkspace";
 import { SettingsPage } from "./Settings";
@@ -44,7 +46,7 @@ import type {
   Transaction,
 } from "./types";
 import { Empty, Icon, Notice } from "./ui";
-type Page = "home" | "transactions" | "budget" | "reports" | "more" | "vouchers" | "catalog" | "settings" | "imports" | "ai";
+type Page = "home" | "transactions" | "budget" | "reports" | "more" | "vouchers" | "catalog" | "settings" | "imports" | "ai" | "analysis" | "rules";
 const navigation: { id: Page; label: string; icon: typeof HouseIcon }[] = [
   { id: "home", label: "本月", icon: HouseIcon },
   { id: "transactions", label: "交易", icon: ReceiptIcon },
@@ -69,7 +71,7 @@ function initialMonth() {
 function initialPage(): Page {
   const hash = location.hash.slice(1);
   if (hash === "settings" || hash.startsWith("settings/")) return "settings";
-  return navigation.some((p) => p.id === hash) || ["vouchers", "catalog", "imports", "ai"].includes(hash) ? (hash as Page) : "home";
+  return navigation.some((p) => p.id === hash) || ["vouchers", "catalog", "imports", "ai", "analysis", "rules"].includes(hash) ? (hash as Page) : "home";
 }
 export default function App() {
   const [page, setPage] = useState<Page>(initialPage),
@@ -218,6 +220,7 @@ export default function App() {
       : loadedMonth === month;
   const pageContent = (
     <>
+      {!["analysis", "rules"].includes(page) && <>
       <div className="screen-toolbar">
         <div className="month-picker">
           <Button
@@ -271,6 +274,7 @@ export default function App() {
                 : "资料部分覆盖，金额以已知记录为准"}
         {status ? ` · 修订 ${status.data_revision}` : ""}
       </Text>
+      </>}
       {error && (
         <Notice kind="error">
           {error}
@@ -317,10 +321,17 @@ export default function App() {
           onSaved={load}
         />
       ) : page === "reports" ? (
+        <>
+        <div><Button onClick={() => navigate("analysis")}>消费与报销分析</Button></div>
         <ReportsWorkspace
           data={reports}
           onTransactions={(filters) => openTransactions(filters)}
         />
+        </>
+      ) : page === "analysis" ? (
+        <AnalysisWorkspace month={month} onTransaction={setSelected}/>
+      ) : page === "rules" ? (
+        <RulesWorkspace chart={chart} years={status?.budget_years || []} onChanged={load} onTransaction={setSelected}/>
       ) : page === "vouchers" ? (
         <VouchersPage month={month} accounts={accounts} chart={chart} budget={budget} onChanged={load} onTransactions={() => openTransactions({ allPeriods: true })}/>
       ) : page === "imports" ? (
@@ -367,7 +378,7 @@ export default function App() {
           href: `#${item.id}`,
           label: item.label,
           icon: item.icon,
-          current: page === item.id || (page === "vouchers" && item.id === "transactions") || (["catalog", "settings", "imports", "ai"].includes(page) && item.id === "more"),
+          current: page === item.id || (page === "vouchers" && item.id === "transactions") || (page === "analysis" && item.id === "reports") || (["catalog", "settings", "imports", "ai", "rules"].includes(page) && item.id === "more"),
         }))}
         screenKey={page}
       >

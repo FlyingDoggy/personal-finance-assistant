@@ -104,6 +104,8 @@ def budget(client, year=2027):
         'request_id': str(uuid4()), 'expected_version': 0, 'payload': payload,
     })
     assert response.status_code == 200, response.text
+    adopted = client.post(f"/api/v1/budget-versions/{payload['year']}/{response.json()['version']}/adopt", json={"request_id":str(uuid4()), "expected_adopted_version":0})
+    assert adopted.status_code == 200, adopted.text
     return payload
 
 
@@ -294,6 +296,8 @@ def payment_budget(client):
         'request_id': str(uuid4()), 'expected_version': 0, 'payload': payload,
     })
     assert response.status_code == 200, response.text
+    adopted = client.post(f"/api/v1/budget-versions/{payload['year']}/{response.json()['version']}/adopt", json={"request_id":str(uuid4()), "expected_adopted_version":0})
+    assert adopted.status_code == 200, adopted.text
 
 
 def test_payment_budget_uses_actual_cash_endpoint_once_and_its_independent_date(book):

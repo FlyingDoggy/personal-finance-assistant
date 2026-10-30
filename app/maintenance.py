@@ -38,7 +38,7 @@ def _inspect(path):
         if db.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or db.execute('PRAGMA foreign_key_check').fetchone():
             raise DomainError('备份数据库完整性检查未通过。', 'invalid_backup', 409)
         meta = dict(db.execute('SELECT key,value FROM metadata'))
-        if meta.get('schema_version') not in {1, 2, SCHEMA_VERSION}:
+        if meta.get('schema_version') not in {1, 2, 3, SCHEMA_VERSION}:
             raise DomainError('此备份结构版本不受当前程序支持。', 'unsupported_schema', 409)
         counts = {table: db.execute(f'SELECT COUNT(*) FROM {table}').fetchone()[0]
                   for table in ('transactions', 'transaction_versions', 'accounts', 'budget_versions', 'artifacts')}

@@ -39,7 +39,8 @@ def capture(db, month):
     month_bounds(month)
     frozen = report(db, month)
     txs = transactions(db)
-    budget = db.execute('SELECT MAX(version) FROM budget_versions WHERE year=?', (int(month[:4]),)).fetchone()[0]
+    from .budget_plans import adopted_version
+    budget = adopted_version(db, int(month[:4]))
     from .coverage import version as coverage_version
     payload = {'calculator_version': CALCULATOR_VERSION, 'coverage_version': coverage_version(db), 'report': frozen, 'transaction_versions': {tid: t['version'] for tid, t in txs.items()},
                'budget_version': budget,

@@ -19,6 +19,7 @@ export type Account = {
   version: number;
 };
 export type HistoricalTransaction = {
+  expense_minor?: string | null;
   event: string;
   in_scope: boolean;
   review: string;
@@ -245,6 +246,8 @@ export type Budget = BudgetPayload & {
   usage_status?: string;
 };
 export type BudgetResponse = Meta & {
+  latest_version?: number;
+  status?: string;
   month_quality?: Record<string, Record<'consumption' | 'payment', CoverageBasisQuality>>;
   unsupported_payment_actuals?: boolean;
   legacy_payment_transaction_ids?: string[];

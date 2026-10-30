@@ -21,7 +21,7 @@ from .security import install_security
 from . import historical
 from .transaction_search import filter_transactions, business_kind
 from . import vouchers, report_snapshots
-from . import catalog
+from . import catalog, budget_plans
 
 PARSER_VERSION='standard_csv_v1'
 CSV_COLUMNS={'source_id','date','description','amount','kind','category_code','counterparty_account_id'}
@@ -43,10 +43,10 @@ def import_dto(row):
     r=dict(row); r['errors']=json.loads(r['errors']); return r
 
 
-def create_app(data_dir=None, token=None, ai_token=None):
+def create_app(data_dir=None, token=None, ai_token=None, web_dir=None):
     directory=Path(data_dir or os.environ.get('FINANCE_DATA_DIR') or Path(__file__).resolve().parent.parent/'data'/'app')
     store=Store(directory)
-    app=FastAPI(title='个人财务管理 · 本地第一批',version='0.5.0-alpha.1',docs_url=None,redoc_url=None,openapi_url=None)
+    app=FastAPI(title='个人财务管理 · 本地第一批',version='0.5.0-dev.2',docs_url=None,redoc_url=None,openapi_url=None)
     app.state.store=store
     app.state.ai_token = ai_token or os.environ.get("FINANCE_AI_TOKEN")
     install_security(app,token,ai_token=app.state.ai_token)
@@ -77,7 +77,7 @@ def create_app(data_dir=None, token=None, ai_token=None):
         with store.read() as db:
             txs=transactions(db)
             available=sorted({t['date'][:7] for t in txs.values() if t.get('date') and historical.scoped(t)})
-            return {'service':'personal-finance-local','schema_version':db.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()[0],'transaction_count':len(txs),'account_count':db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0],'import_count':db.execute('SELECT COUNT(*) FROM imports').fetchone()[0],'capabilities':{'standard_csv':True,'native_bank_import':True,'native_cmb_credit_pdf':True,'import_preview_resume':True,'full_backup_restore':True,'coverage_declarations':True,'ai_queue':True,'mcp_classification':bool(app.state.ai_token),'investments':False,'ai':False,'remote_access':False,'report_export':False,'historical_migration':True,'budget_actuals':'explicit_consumption_and_payment_links','historical_editing':True,'voucher_browser':True,'dimension_catalog':True,'report_snapshots':True,'logical_json_export':True},'limitations':['历史账本支持直接修改与保留历史；配对金额同步、退款科目继承。原生格式目前支持招商信用卡文本 PDF；支付宝商品明细仅补证据。投资维护、融资本息重新拆分、报表导出与远程访问尚未交付。','当前报表仅为已知记录汇总；覆盖范围按账户、月份和口径确认。','AI 任务仅限新导入的未分类消费；需由已配置的 Codex MCP 主动领取，不会在上传后自动启动模型。'],'available_months':available,'budget_years':[r[0] for r in db.execute('SELECT DISTINCT year FROM budget_versions ORDER BY year')],'migration':historical.migration_summary(db),**common(db,txs)}
+            return {'service':'personal-finance-local','schema_version':db.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()[0],'transaction_count':len(txs),'account_count':db.execute('SELECT COUNT(*) FROM accounts').fetchone()[0],'import_count':db.execute('SELECT COUNT(*) FROM imports').fetchone()[0],'capabilities':{'standard_csv':True,'native_bank_import':True,'native_cmb_credit_pdf':True,'import_preview_resume':True,'full_backup_restore':True,'coverage_declarations':True,'ai_queue':True,'mcp_classification':bool(app.state.ai_token),'investments':False,'ai':False,'remote_access':False,'report_export':False,'historical_migration':True,'budget_actuals':'explicit_consumption_and_payment_links','historical_editing':True,'voucher_browser':True,'dimension_catalog':True,'report_snapshots':True,'logical_json_export':True,'budget_drafts':True,'classification_rules':True,'batch_classification':True,'consumption_analysis':True,'reimbursement_normalization':True,'analysis_snapshots':True},'limitations':['历史账本支持直接修改与保留历史；配对金额同步、退款科目继承。原生格式目前支持招商信用卡文本 PDF；支付宝商品明细仅补证据。投资维护、融资本息重新拆分、报表导出与远程访问尚未交付。','当前报表仅为已知记录汇总；覆盖范围按账户、月份和口径确认。','AI 任务仅限新导入的未分类消费；需由已配置的 Codex MCP 主动领取，不会在上传后自动启动模型。'],'available_months':available,'budget_years':[r[0] for r in db.execute("SELECT year FROM budget_states WHERE status='adopted' ORDER BY year")],'migration':historical.migration_summary(db),**common(db,txs)}
 
     @app.get('/api/v1/chart-accounts')
     def get_chart():
@@ -148,7 +148,7 @@ def create_app(data_dir=None, token=None, ai_token=None):
             history=[{'version':r['version'],'action':r['action'],'actor':r['actor'],'reason':r['reason'],'created_at':r['created_at'],'before':json.loads(r['before_payload']) if r['before_payload'] else None,'after':json.loads(r['after_payload'])} for r in db.execute('SELECT * FROM transaction_versions WHERE transaction_id=? ORDER BY version',(tid,))]
             effect=effects(p,acc)
             for year in {int(p[key][:4]) for key in ('date','cash_date') if p.get(key)}:
-                budget=db.execute('SELECT payload FROM budget_versions WHERE year=? ORDER BY version DESC LIMIT 1',(year,)).fetchone()
+                budget=budget_plans.adopted_row(db,year)
                 if not budget: continue
                 computed,meta=budget_projection(db,json.loads(budget['payload']))
                 linked=next((u for u in computed['usage'] + computed.get('unallocated_usage', []) if u['id']==tid),None)
@@ -287,6 +287,8 @@ def create_app(data_dir=None, token=None, ai_token=None):
                         p=validate_transaction(p,acc,txs)
                         validate_budget_line(db,p)
                         tid=uid(); version=save_transaction(db,tid,p,'import','标准 CSV 原始记录',actor='importer'); imported+=1
+                        from .classification_rules import apply_imported
+                        apply_imported(db,tid)
                         txs[tid]={**p,'id':tid,'version':version}
                         db.execute('INSERT INTO source_identity VALUES(?,?,?,?)',(account_id,source_id,fp,tid))
                 except DomainError as exc:
@@ -337,31 +339,16 @@ def create_app(data_dir=None, token=None, ai_token=None):
     def get_budget(year:int):
         if not 1<=year<=9999: raise DomainError('预算年份须在 1–9999。')
         with store.read() as db:
-            row=db.execute('SELECT * FROM budget_versions WHERE year=? ORDER BY version DESC LIMIT 1',(year,)).fetchone()
-            if not row: return {'version':0,'budget':None,'actuals_connected':False,**common(db)}
+            row=budget_plans.adopted_row(db,year)
+            if not row: return {'version':0,'latest_version':budget_plans.latest_version(db,year),'budget':None,'actuals_connected':False,**common(db)}
             computed,meta=budget_projection(db,json.loads(row['payload']))
-            return {'version':row['version'],'budget':computed,'migration':historical.budget_provenance(db,year,row['version']),**meta,**common(db)}
+            return {'version':row['version'],'latest_version':budget_plans.latest_version(db,year),'status':'adopted','budget':computed,'migration':historical.budget_provenance(db,year,row['version']),**meta,**common(db)}
 
     @app.post('/api/v1/budgets')
     async def post_budget(request:Request):
-        body=body_object(await request.json(),{'request_id','expected_version','payload'})
-        p=body.get('payload')
-        if not isinstance(p,dict): raise DomainError('预算 payload 须为对象。')
-        if p.get('usage'): raise DomainError('实际占用由正式交易派生，不能通过预算计划写入。','actuals_read_only')
-        from .budget import compute_budget, BudgetError
-        try: compute_budget(p)
-        except (BudgetError,ValueError,KeyError,TypeError) as exc: raise DomainError(getattr(exc,'message',str(exc)),getattr(exc,'code','validation_error'))
+        body=await request.json()
         with store.write() as db:
-            fingerprint,cached=operation(db,body.get('request_id'),'budget_save',body)
-            if cached is not None: return cached
-            current=db.execute('SELECT COALESCE(MAX(version),0) FROM budget_versions WHERE year=?',(p['year'],)).fetchone()[0]
-            expected(body,current)
-            try: computed,meta=budget_projection(db,p)
-            except (BudgetError,ValueError) as exc: raise DomainError(getattr(exc,'message',str(exc)),getattr(exc,'code','validation_error'))
-            new_revision=advance(db)
-            db.execute('INSERT INTO budget_versions VALUES(?,?,?,?,?)',(p['year'],current+1,encode({**p,'usage':[]}),now(),new_revision))
-            response={'version':current+1,'budget':computed,**meta,**common(db)}
-            return finish_operation(db,body['request_id'],'budget_save',fingerprint,response)
+            return budget_plans.create_draft(db,body)
 
     @app.get('/api/v1/operations/{request_id}')
     def get_operation(request_id:str):
@@ -370,7 +357,10 @@ def create_app(data_dir=None, token=None, ai_token=None):
             if not row: raise DomainError('请求记录不存在。','not_found',404)
             return json.loads(row['response'])
 
-    from . import maintenance, coverage as coverage_service, ai_work, imports_v2
+    from . import maintenance, coverage as coverage_service, ai_work, imports_v2, classification_rules, analysis
+    analysis.register_routes(app,store)
+    classification_rules.register_routes(app,store)
+    budget_plans.register_routes(app,store)
     maintenance.register_routes(app,store)
     coverage_service.register_routes(app,store)
     ai_work.register_routes(app,store)
@@ -380,7 +370,7 @@ def create_app(data_dir=None, token=None, ai_token=None):
     def unsupported_api(unsupported:str):
         raise DomainError('此接口尚未实现。','not_found',404)
 
-    dist=Path(__file__).resolve().parent.parent/'web'/'dist'
+    dist=Path(web_dir or os.environ.get('FINANCE_WEB_DIST') or Path(__file__).resolve().parent.parent/'web'/'dist')
     if dist.exists(): app.mount('/',StaticFiles(directory=dist,html=True),name='web')
     return app
 
@@ -390,7 +380,7 @@ def validate_budget_line(db,p,previous=None):
     candidate_years={int(p[key][:4]) for key in ('date','cash_date') if p.get(key)}
     matches=[]
     for year in candidate_years:
-        row=db.execute('SELECT payload FROM budget_versions WHERE year=? ORDER BY version DESC LIMIT 1',(year,)).fetchone()
+        row=budget_plans.adopted_row(db,year)
         if row: matches.extend(line for line in json.loads(row['payload'])['lines'] if line['id']==p['budget_line_id'] and (p.get('cash_date' if line.get('actual_basis')=='payment' else 'date') or '').startswith(str(year)))
     if not matches:
         raise DomainError('预算行不存在于交易发生年的当前预算，请先保存预算或清空关联。')

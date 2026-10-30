@@ -1,3 +1,4 @@
+import { BatchClassifier } from "./BatchClassifier";
 import * as stylex from "@stylexjs/stylex";
 import { NavigationSplitView } from "@tuja/ui/components/navigation-split-view";
 import { Button } from "@tuja/ui/components/button";
@@ -247,6 +248,8 @@ export function TransactionsPage({
     [error, setError] = useState(""),
     [selected, setSelected] = useState<string | null>(null),
     [reload, setReload] = useState(0);
+  const [batchItems, setBatchItems] = useState<Transaction[]>([]);
+  const [batchOpen, setBatchOpen] = useState(false);
   useEffect(() => {
     const timer = window.setTimeout(() => setQueryText(search.trim()), 250);
     return () => window.clearTimeout(timer);
@@ -361,6 +364,8 @@ export function TransactionsPage({
             </Text>
           </div>
         </div>
+        <div className="filter-controls"><Button size="sm" disabled={!batchItems.length} onClick={() => setBatchOpen(true)}>批量分类（{batchItems.length}）</Button>{batchItems.length > 0 && <Button size="sm" look="ghost" onClick={() => setBatchItems([])}>清除选择</Button>}</div>
+        {batchOpen && <BatchClassifier items={batchItems} chart={chart} budget={budget} onClose={() => setBatchOpen(false)} onSaved={async () => { setBatchOpen(false); setBatchItems([]); setReload(n => n + 1); await onChanged(); }}/>}
         <search css={stack.tight}>
           <TextField
             type="search"
@@ -504,6 +509,7 @@ export function TransactionsPage({
                   </Text>
                 </div>
               )}
+              {(t.historical ? BigInt(t.historical.expense_minor || "0") > 0n : t.kind === "expense") && <label className="batch-select"><input type="checkbox" aria-label={`选择消费 ${t.description}`} checked={batchItems.some(x => x.id === t.id)} disabled={batchItems.length >= 200 && !batchItems.some(x => x.id === t.id)} onChange={e => setBatchItems(old => e.target.checked ? [...old, t] : old.filter(x => x.id !== t.id))}/>选择这笔消费</label>}
               <button
                 className="plain-transaction-row"
                 aria-current={selected === t.id ? "true" : undefined}

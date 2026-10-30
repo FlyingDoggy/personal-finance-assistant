@@ -971,3 +971,9 @@ td small {
 
 .wrap-path { overflow-wrap: anywhere; }
 .backup-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+
+.analysis-controls { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:16px; align-items:end; }
+
+.batch-select { display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary,#666);padding:4px 12px; }
+
+.analysis-filter-box summary { cursor:pointer; padding:8px 0 16px; }

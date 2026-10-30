@@ -1,9 +1,11 @@
 # 个人财务助手增量实施计划 v0.5
 
-> 开工状态（2026-10-30）：首批 R00/R01 已集成；R02 协议与真实 Codex 合成闭环通过，生产机器写入仍关闭。具体实现、复核修复、428 项测试及真实升级证据见[开发记录](implementation-status.md)和[技术方案](technical-design-v0.5.md)。后续切片的完整范围和依赖保持如下。
+> 开发状态（2026-10-30）：R00/R01 已集成；第二批预算草稿/采用、规则治理/批量分类、确定性消费与同窗报销分析已通过验收并集成本机开发版。全套 446 项测试通过，真实账本迁移对照保持零差异。R02 真实机器写入仍关闭。详细分支和后续范围见[开发记录](implementation-status.md)与[第二批技术方案](technical-design-r03-r05.md)。
 
 
-日期：2026-10-29（Asia/Shanghai）。状态：两轮评审后的候选计划，待用户审阅；本轮未实施以下新切片。需求以[主规格](../specs/personal-finance-assistant.md)及[账单处理与分析闭环](../specs/ingestion-and-analysis.md)为准；已交付事实看[开发记录](implementation-status.md)。
+日期：2026-10-30（Asia/Shanghai）。状态：用户已授权持续开发，R00/R01 首批已完成，R03 与 R05 基础流程已进入第二批集成验收；后续完整范围仍保留。需求以[主规格](../specs/personal-finance-assistant.md)及[账单处理与分析闭环](../specs/ingestion-and-analysis.md)为准；已交付事实看[开发记录](implementation-status.md)。
+
+本轮实施合同：[R03/R05 第二批技术方案](technical-design-r03-r05.md)。预算草稿/采用、规则治理和人工批量分类、确定性消费及报销分析已实现，未完成项以开发记录逐分支标记。
 
 ## 1. 本次调整
 

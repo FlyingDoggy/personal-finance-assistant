@@ -149,7 +149,7 @@ def sync(db):
             db.execute('INSERT INTO transaction_tags VALUES(?,?,?,?)',
                        (t['id'], t['version'], tag_id, '当前历史解释的明确 ' + key + ' 字段'))
 
-    for version in db.execute('SELECT year,version,payload FROM budget_versions ORDER BY year,version'):
+    for version in db.execute("SELECT b.year,b.version,b.payload FROM budget_versions b JOIN budget_states s USING(year,version) WHERE s.status!='draft' ORDER BY b.year,b.version"):
         payload = json.loads(version['payload'])
         for position, line in enumerate(payload['lines']):
             # The original line ID is retained across adopted budget versions.

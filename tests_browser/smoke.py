@@ -96,9 +96,11 @@ def run(url):
         dialog.get_by_label("生活用途", exact=True).select_option("餐饮")
         dialog.get_by_label("首月金额（元）", exact=False).fill("5500")
         dialog.get_by_role("button", name="应用全年", exact=True).last.click()
-        dialog.get_by_role("button", name="检查并采用", exact=True).click()
-        dialog.get_by_role("button", name="保存并采用预算", exact=True).click()
+        dialog.get_by_role("button", name="检查草稿", exact=True).click()
+        dialog.get_by_role("button", name="保存预算草稿", exact=True).click()
         expect(dialog).not_to_be_visible()
+        page.get_by_role("button", name="核对并采用", exact=True).click()
+        page.get_by_role("button", name="确认采用此预算", exact=True).click()
         budget = api("/budgets?year=2027")
         line = budget["budget"]["lines"][0]["id"]
         assert budget["budget"]["annual"]["planned_minor"] == "6600000"

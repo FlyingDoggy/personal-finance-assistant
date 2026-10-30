@@ -124,7 +124,8 @@ def _actor(request):
 
 
 def _rules(db):
-    return POLICY_VERSION + ':' + digest([c for c in CHART if c['type'] == 'expense'])[:16]
+    from .classification_rules import version
+    return POLICY_VERSION + ':' + digest([c for c in CHART if c['type'] == 'expense'])[:16] + ':' + str(version(db))
 
 
 def _target(db, tid):
@@ -394,11 +395,13 @@ def work_context(db, body):
     locked = _human_fields(db, target['id'])
     source_count = _source_count(db, target['id'])
     truncated = source_count > 50
-    allowed = [k for k in ('category_code', 'description') if k not in locked] if _eligible(target) and current and row['status'] in ACTIVE and not truncated else []
+    from .classification_rules import has_conflict
+    conflict = has_conflict(db, target)
+    allowed = [k for k in ('category_code', 'description') if k not in locked] if _eligible(target) and current and row['status'] in ACTIVE and not truncated and not conflict else []
     if args.lease_token:
         db.execute('UPDATE work_items SET granted_context_revision=? WHERE id=?', (context_revision, row['id']))
     return {'work_item': _dto(row), 'target': {k: (_redact(target[k]) if k == 'description' else target.get(k)) for k in ('id', 'version', 'date', 'description', 'kind', 'category_code', 'amount_minor', 'currency')},
-            'allowed_fields': allowed, 'human_locked_fields': sorted(locked), 'read_only': not bool(args.lease_token and allowed),
+            'allowed_fields': allowed, 'human_locked_fields': sorted(locked), 'read_only': not bool(args.lease_token and allowed), 'rule_conflict': conflict,
             'context_revision': context_revision, 'rule_version': rules, 'source_evidence_versions': versions,
             'allowed_categories': [{'code': c['code'], 'name': c['name']} for c in CHART if c['type'] == 'expense' and c['code'] != '5016'],
             'evidence': evidence, 'evidence_complete': not truncated, 'source_count': source_count,
@@ -426,7 +429,7 @@ def submit_work(db, body):
             or row['granted_context_revision'] != context_revision):
         raise DomainError('上下文未授予或目标、证据、规则已变化。', 'dependency_conflict', 409)
     if not _eligible(target):
-        raise DomainError('只允许已确认、未分类的原生消费；历史账务只读。', 'unsupported_target', 409)
+        raise DomainError('只允许已确认、未分类的原生消费；历史记录不在 AI 自动写入范围。', 'unsupported_target', 409)
     patches = args.field_patches
     if set(patches) - {'category_code', 'description'}:
         raise DomainError('AI 只允许修改科目与客观描述。', 'field_forbidden', 403)
@@ -440,6 +443,9 @@ def submit_work(db, body):
     attempts = row['attempt_count']
     applied_version = target['version']
     if args.proposal_type == 'classification':
+        from .classification_rules import has_conflict
+        if has_conflict(db, target):
+            raise DomainError('已启用规则存在同级冲突，只能转人工核对。', 'rule_conflict', 409)
         if _source_count(db, target['id']) > 50:
             raise DomainError('来源超过上下文展示上限，须人工核对全部证据后处理。', 'evidence_truncated', 409)
         if not patches or set(args.field_evidence) != set(patches):

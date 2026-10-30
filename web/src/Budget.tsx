@@ -15,6 +15,7 @@ import {
   toMinor,
 } from "./api";
 import type { BudgetLine, BudgetPayload, BudgetResponse } from "./types";
+import { BudgetVersions } from "./BudgetVersions";
 import { Empty, Field, Icon, Modal, Notice } from "./ui";
 export const groups = [
   "住房与居家",
@@ -52,6 +53,8 @@ export function BudgetPage({
   availableYears?: number[];
   onYearChange?: (year: number) => void;
 }) {
+  const [editorData, setEditorData] = useState<BudgetResponse | null>(null);
+  const [draftRefresh, setDraftRefresh] = useState(0);
   const [editing, setEditing] = useState(false),
     [view, setView] = useState<"month" | "year">("month"),
     [showZeroItems, setShowZeroItems] = useState(false);
@@ -82,11 +85,12 @@ export function BudgetPage({
             {budget ? `已采用第 ${data?.version} 版` : "还没有采用预算"}
           </p>
         </div>
-        <Button onClick={() => setEditing(true)} look="primary">
+        <Button onClick={() => { setEditorData(data); setEditing(true); }} look="primary">
           <Icon name={budget ? "edit" : "plus"} />
           {budget ? "修订预算" : "创建年度预算"}
         </Button>
       </div>
+      <BudgetVersions year={Number(month.slice(0, 4))} data={data} refresh={draftRefresh} onSaved={onSaved} onEdit={(d) => { setEditorData(d); setEditing(true); }}/>
       {availableYears.length > 0 && onYearChange && (
         <div className="filter-controls">
           <Select
@@ -117,13 +121,13 @@ export function BudgetPage({
             icon="budget"
             title="从你的生活安排开始"
             action={
-              <Button onClick={() => setEditing(true)} look="primary">
+              <Button onClick={() => { setEditorData(data); setEditing(true); }} look="primary">
                 创建 {month.slice(0, 4)} 年预算
                 <Icon name="arrow" size={17} />
               </Button>
             }
           >
-            填入每月可用资金、生活用途与年度留存目标。预算采用后，修改会保存为新版本。
+            填入每月可用资金、生活用途与年度留存目标。每次修订先保存为草稿，明确采用后才用于首页与预实。
           </Empty>
           <div className="budget-principles">
             <div>
@@ -320,7 +324,7 @@ export function BudgetPage({
                   <Empty
                     title="本年还没有生活项目"
                     action={
-                      <Button onClick={() => setEditing(true)}>
+                      <Button onClick={() => { setEditorData(data); setEditing(true); }}>
                         添加预算项目
                       </Button>
                     }
@@ -414,12 +418,13 @@ export function BudgetPage({
       )}
       {editing && (
         <BudgetEditor
-          data={data}
+          data={editorData ?? data}
           year={Number(month.slice(0, 4))}
           onClose={() => setEditing(false)}
           onSaved={async () => {
             await onSaved();
             setEditing(false);
+            setDraftRefresh(n => n + 1);
           }}
         />
       )}
@@ -555,7 +560,7 @@ function BudgetEditor({
     setSaving(true);
     setError("");
     try {
-      const body = { expected_version: data?.version ?? 0, payload: payload() };
+      const body = { expected_version: data?.latest_version ?? data?.version ?? 0, expected_adopted_version: data?.version ?? 0, payload: payload() };
       await api("/budgets", {
         method: "POST",
         body: JSON.stringify({
@@ -599,8 +604,8 @@ function BudgetEditor({
                   <dt>本次保存</dt>
                   <dd>
                     {data?.budget
-                      ? "保留原版，采用新的修订版"
-                      : "采用第一版年度预算"}
+                      ? "保存修订草稿，核对后另行采用"
+                      : "保存第一版年度预算草稿"}
                   </dd>
                 </div>
               </dl>
@@ -848,8 +853,8 @@ function BudgetEditor({
           {saving
             ? "正在保存…"
             : step === "review"
-              ? "保存并采用预算"
-              : "检查并采用"}
+              ? "保存预算草稿"
+              : "检查草稿"}
           <Icon name={step === "review" ? "check" : "arrow"} size={17} />
         </Button>
       </footer>
